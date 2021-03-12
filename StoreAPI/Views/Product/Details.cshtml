@@ -1,0 +1,51 @@
+﻿@model StoreAPI.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.category.name_category)
+        </dt>
+
+        <dd>
+
+            @Html.DisplayFor(model => model.category.name_category)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.name_product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cost_product)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cost_product)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.content)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.content)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_product }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

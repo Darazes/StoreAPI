@@ -1,0 +1,48 @@
+﻿@model StoreAPI.Models.Procurement
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Procurement</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.date_procurement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.date_procurement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.cost_procurement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.cost_procurement)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.count_procurement)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.count_procurement)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

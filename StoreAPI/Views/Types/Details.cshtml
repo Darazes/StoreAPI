@@ -1,0 +1,26 @@
+﻿@model StoreAPI.Models.Type
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Type</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name_type)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_type)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.id_type_delivery }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

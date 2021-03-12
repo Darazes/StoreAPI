@@ -1,0 +1,40 @@
+﻿@model StoreAPI.Models.Product
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Добавление нового продукта</h2>
+
+@using (Html.BeginForm())
+{
+
+    <p>
+        Имя товара <br />
+        @Html.EditorFor(model => model.name_product)
+    </p>
+
+    <p>
+        Цена товара <br />
+        @Html.EditorFor(model => model.cost_product)
+    </p>
+
+    <p>
+        Описание <br />
+        @Html.TextAreaFor(model => model.content)
+    </p>
+
+    <p>
+        Категория <br />
+        @Html.DropDownListFor(model => model.id_category, ViewBag.id_category as SelectList)
+    </p>
+
+    <p>
+        <input type="submit" value="Добавить товар" />
+    </p>
+
+}
+
+<div>
+    @Html.ActionLink("К списку товаров","Index")
+</div>
