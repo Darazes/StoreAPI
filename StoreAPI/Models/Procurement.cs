@@ -17,10 +17,6 @@ namespace StoreAPI.Models
         public float cost_procurement { get; set; }
         [Required]
         public int count_procurement { get; set; }
-        [Required]
-        public int id_storage { get; set; }
-
-        public Storage storage { get; set; }
 
         [Required]
         public int id_product { get; set; }

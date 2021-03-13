@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Data.Entity;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace StoreAPI.Controllers
 {
@@ -19,6 +21,12 @@ namespace StoreAPI.Controllers
 
             return View(products.ToList());
         }
+
+        public ActionResult Search(string searching)
+        {
+            return View(db.Products.Where(n => n.category.name_category.Contains(searching) || searching == null).Include(c => c.category).ToList());
+        }
+
 
         [HttpGet]
         public ActionResult Create()
@@ -84,20 +92,30 @@ namespace StoreAPI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Delete(int? id)
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Product product = await db.Products.Include(c => c.category).SingleOrDefaultAsync(t => t.id_product == id);
+
+            ViewBag.id_category = new SelectList(db.Categories, "id_category", "name_category");
+
+            if (product == null)
+            {
                 return HttpNotFound();
             }
+            return View(product);
+        }
 
-            Product product = db.Products.Find(id);
-
-            if (product != null)
-            {
-                db.Products.Remove(product);
-                db.SaveChanges();
-            }
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> DeleteConfirmed(int id)
+        {
+            Product product = await db.Products.FindAsync(id);
+            db.Products.Remove(product);
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

@@ -1,33 +1,41 @@
 ﻿@model IEnumerable<StoreAPI.Models.Product>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<h2>Продукты</h2>
+
+<table class="table">
+    <tr>
+        <td>@Html.ActionLink("Поиск по продуктам", "Search")</td>
+        <td>@Html.ActionLink("Поиск по категориям", "Create")</td>
+        <td>@Html.ActionLink("Добавить продукт", "Create")</td>
+    </tr>
+</table>
+
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name_product)
+            Название продукта
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.category.name_category)
+            Категория
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.name_product)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.category.name_category)
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.id_product }) |
-        @Html.ActionLink("Details", "Details", new { id = item.id_product }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.id_product })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.name_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.category.name_category)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.id_product }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id_product }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id_product })
+            </td>
+        </tr>
+    }
 
 </table>

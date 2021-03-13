@@ -1,18 +1,14 @@
 ﻿@model IEnumerable<StoreAPI.Models.Category>
 
-@{
-    ViewBag.Title = "Index";
-}
-
-<h2>Index</h2>
+<h2>Категории</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить категорию", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name_category)
+            Название категории
         </th>
         <th></th>
     </tr>
@@ -23,9 +19,8 @@
             @Html.DisplayFor(modelItem => item.name_category)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_category }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_category }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_category })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id_category }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id_category })
         </td>
     </tr>
 }

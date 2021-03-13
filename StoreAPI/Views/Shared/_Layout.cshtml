@@ -21,12 +21,10 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Домашняя страница", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Поставки", "Index", "Product")</li>
+                    <li>@Html.ActionLink("Поставки", "Index", "Procurements")</li>
                     <li>@Html.ActionLink("Продукты", "Index", "Product")</li>
                     <li>@Html.ActionLink("Категории", "Index", "Categories")</li>
                     <li>@Html.ActionLink("Типы", "Index", "Types")</li>
-                    <li>@Html.ActionLink("Склады", "Index", "Storages")</li>
                 </ul>
             </div>
         </div>
@@ -34,9 +32,9 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        @*<footer>
             <p>&copy; @DateTime.Now.Year - платформа ASP.NET</p>
-        </footer>
+        </footer>*@
     </div>
 
     @Scripts.Render("~/bundles/jquery")

@@ -1,11 +1,8 @@
 ﻿@model StoreAPI.Models.Product
 
-@{
-    ViewBag.Title = "Details";
-}
+<h2>Удаление товара</h2>
 
-<h2>Подробнее о продукте</h2>
-
+<h3>Вы хотите удалить товар?</h3>
 <div>
     <br>
     <dl class="dl-horizontal">
@@ -42,8 +39,13 @@
         </dd>
 
     </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку товаров", "Index")
+        </div>
+    }
 </div>
-<p>
-    @Html.ActionLink("Редактировать продукт", "Edit", new { id = Model.id_product }) |
-    @Html.ActionLink("К списку товаров", "Index")
-</p>

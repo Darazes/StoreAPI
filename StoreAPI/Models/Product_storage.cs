@@ -14,11 +14,6 @@ namespace StoreAPI.Models
         public int id_product_storage { get; set; }
 
         [Required]
-        public int id_storage { get; set; }
-
-        public Storage storage { get; set; }
-
-        [Required]
         public int id_product { get; set; }
 
         public Product product { get; set; }

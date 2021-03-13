@@ -31,7 +31,7 @@ namespace StoreAPI.Controllers
 
             //Procurement procurement = await db.Procurements.FindAsync(id);
 
-            Procurement procurement = db.Procurements.Include(s => s.storage).Include(p => p.product).FirstOrDefault(tp => tp.id_procurement == id);
+            Procurement procurement = db.Procurements.Include(p => p.product).FirstOrDefault(tp => tp.id_procurement == id);
 
             //SingleOrDefault(tp =>  tp.id_product == id);
 
@@ -47,7 +47,6 @@ namespace StoreAPI.Controllers
         {
 
             ViewBag.id_product= new SelectList(db.Products, "id_product", "name_product");
-            ViewBag.id_storage = new SelectList(db.Storages, "id_storage", "adress_storage");
 
 
             return View();
@@ -61,7 +60,6 @@ namespace StoreAPI.Controllers
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
         {
             ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
-            ViewBag.id_storage = new SelectList(db.Storages, "id_storage", "adress_storage");
 
             if (ModelState.IsValid)
             {

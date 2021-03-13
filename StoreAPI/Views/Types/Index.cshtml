@@ -1,18 +1,15 @@
 ﻿@model IEnumerable<StoreAPI.Models.Type>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Index</h2>
+<h2>Типы доставки</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить тип доставки", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.name_type)
+            Название типа доставки
         </th>
         <th></th>
     </tr>
@@ -23,9 +20,8 @@
             @Html.DisplayFor(modelItem => item.name_type)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.id_type_delivery }) |
-            @Html.ActionLink("Details", "Details", new { id=item.id_type_delivery }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.id_type_delivery })
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id_type_delivery }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id_type_delivery })
         </td>
     </tr>
 }

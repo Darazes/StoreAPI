@@ -28,8 +28,6 @@ namespace StoreAPI.Models
 
         public DbSet<Shipment> Shipments { get; set; }
 
-        public DbSet<Storage> Storages { get; set; }
-
         public DbSet<Type> Types { get; set; }
 
         public StoreContext() : base("StoreContext")
