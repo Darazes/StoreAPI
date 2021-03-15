@@ -1,14 +1,13 @@
 ﻿@model IEnumerable<StoreAPI.Models.Procurement>
 
-@{
-    ViewBag.Title = "Index";
-}
-
 <h2>Поставки</h2>
 
 <p>
     @Html.ActionLink("Добавить поставку", "Create")
+
+    @Html.ActionLink("Наличие товаров на складе", "Index", "Product_storage")
 </p>
+
 <table class="table">
     <tr>
         <th>

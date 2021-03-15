@@ -19,7 +19,17 @@ namespace StoreAPI.Models
         public Product product { get; set; }
 
         [Required]
+        [Display(Name = "Количество товаров на складе")]
         public int count { get; set; }
+
+        public Product_storage()
+        { 
+        }
+        public Product_storage(int count, int id_product)
+        {
+            this.count = count;
+            this.id_product = id_product;
+        }
 
     }
 }

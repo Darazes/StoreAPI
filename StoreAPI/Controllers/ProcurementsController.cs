@@ -58,12 +58,22 @@ namespace StoreAPI.Controllers
 
             if (ModelState.IsValid)
             {
-                //procurement.date_procurement = new DataColumn(procurement.date_procurement, typeof(DateTime));
-
                 db.Procurements.Add(procurement);
+
+                if (db.Product_storage.Find(procurement.id_product) == null)
+                {
+                    db.Product_storage.Add(new Product_storage(procurement.count_procurement, procurement.id_product));
+                }
+                else 
+                {
+                    db.Product_storage.Find(procurement.id_product).id_product = procurement.id_product;
+                    db.Product_storage.Find(procurement.id_product).count += procurement.count_procurement;
+                }
+
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
+
 
             return View(procurement);
         }
@@ -124,6 +134,15 @@ namespace StoreAPI.Controllers
         {
             Procurement procurement = await db.Procurements.Include(x =>x.product).SingleOrDefaultAsync(i => i.id_procurement == id);
             db.Procurements.Remove(procurement);
+
+
+
+            if (db.Product_storage.Find(procurement.id_product) != null)
+            { 
+                db.Product_storage.Find(procurement.id_product).count -= procurement.count_procurement;
+            }
+
+
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }

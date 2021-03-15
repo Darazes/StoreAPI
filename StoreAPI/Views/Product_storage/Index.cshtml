@@ -1,0 +1,29 @@
+﻿@model IEnumerable<StoreAPI.Models.Product_storage>
+
+
+<h2>Наличие товара на складе</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.product.name_product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.count)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.product.name_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+
+        </tr>
+    }
+
+</table>
