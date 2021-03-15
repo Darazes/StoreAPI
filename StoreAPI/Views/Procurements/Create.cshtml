@@ -1,11 +1,6 @@
 ﻿@model StoreAPI.Models.Procurement
 
-@{
-    ViewBag.Title = "Create";
-}
-
-<h2>Create</h2>
-
+<h2>Добавить поставку</h2>
 
 @using (Html.BeginForm()) 
 {
@@ -24,27 +19,11 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.cost_procurement, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.cost_procurement, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.cost_procurement, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
             @Html.LabelFor(model => model.count_procurement, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.count_procurement, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.count_procurement, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.id_storage, "id_storage", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("id_storage", ViewBag.id_storage as SelectList, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.id_storage, "", new { @class = "text-danger" })
-        </div>
         </div>
 
         <div class="form-group">
@@ -64,9 +43,5 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("К списку поставок", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

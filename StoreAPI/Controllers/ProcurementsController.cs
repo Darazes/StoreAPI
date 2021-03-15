@@ -18,7 +18,7 @@ namespace StoreAPI.Controllers
         // GET: Procurements
         public async Task<ActionResult> Index()
         {
-            return View(await db.Procurements.ToListAsync());
+            return View(await db.Procurements.Include(x =>x.product).ToListAsync());
         }
 
         // GET: Procurements/Details/5
@@ -29,11 +29,7 @@ namespace StoreAPI.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            //Procurement procurement = await db.Procurements.FindAsync(id);
-
-            Procurement procurement = db.Procurements.Include(p => p.product).FirstOrDefault(tp => tp.id_procurement == id);
-
-            //SingleOrDefault(tp =>  tp.id_product == id);
+            Procurement procurement = await db.Procurements.Include(p => p.product).FirstOrDefaultAsync(tp => tp.id_procurement == id);
 
             if (procurement == null)
             {
@@ -59,10 +55,11 @@ namespace StoreAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
         {
-            ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
 
             if (ModelState.IsValid)
             {
+                //procurement.date_procurement = new DataColumn(procurement.date_procurement, typeof(DateTime));
+
                 db.Procurements.Add(procurement);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -74,6 +71,8 @@ namespace StoreAPI.Controllers
         // GET: Procurements/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
+            ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -93,6 +92,7 @@ namespace StoreAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
         {
+
             if (ModelState.IsValid)
             {
                 db.Entry(procurement).State = EntityState.Modified;
@@ -109,7 +109,7 @@ namespace StoreAPI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Procurement procurement = await db.Procurements.FindAsync(id);
+            Procurement procurement = await db.Procurements.Include(x => x.product).SingleOrDefaultAsync(i => i.id_procurement == id);
             if (procurement == null)
             {
                 return HttpNotFound();
@@ -122,7 +122,7 @@ namespace StoreAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Procurement procurement = await db.Procurements.FindAsync(id);
+            Procurement procurement = await db.Procurements.Include(x =>x.product).SingleOrDefaultAsync(i => i.id_procurement == id);
             db.Procurements.Remove(procurement);
             await db.SaveChangesAsync();
             return RedirectToAction("Index");

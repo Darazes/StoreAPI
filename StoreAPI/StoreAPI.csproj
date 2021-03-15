@@ -189,7 +189,6 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Product\Index.cshtml" />
-    <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Product\Edit.cshtml" />
     <Content Include="Views\Categories\Create.cshtml" />
     <Content Include="Views\Categories\Delete.cshtml" />
@@ -201,18 +200,13 @@
     <Content Include="Views\Types\Details.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
-    <Content Include="Views\Storages\Create.cshtml" />
-    <Content Include="Views\Storages\Delete.cshtml" />
-    <Content Include="Views\Storages\Details.cshtml" />
-    <Content Include="Views\Storages\Edit.cshtml" />
-    <Content Include="Views\Storages\Index.cshtml" />
-    <Content Include="Views\Procurements\Create.cshtml" />
     <Content Include="Views\Procurements\Delete.cshtml" />
-    <Content Include="Views\Procurements\Details.cshtml" />
     <Content Include="Views\Procurements\Edit.cshtml" />
     <Content Include="Views\Procurements\Index.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
+    <Content Include="Views\Product\Create.cshtml" />
+    <Content Include="Views\Procurements\Create.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
