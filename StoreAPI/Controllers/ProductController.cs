@@ -24,6 +24,11 @@ namespace StoreAPI.Controllers
 
         public ActionResult Search(string searching)
         {
+            return View(db.Products.Where(n => n.name_product.Contains(searching) || searching == null).Include(c => c.category).ToList());
+        }
+
+        public ActionResult SearchCategory(string searching)
+        {
             return View(db.Products.Where(n => n.category.name_category.Contains(searching) || searching == null).Include(c => c.category).ToList());
         }
 

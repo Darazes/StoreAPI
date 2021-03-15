@@ -202,13 +202,13 @@
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Procurements\Delete.cshtml" />
-    <Content Include="Views\Procurements\Edit.cshtml" />
     <Content Include="Views\Procurements\Index.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
     <Content Include="Views\Product\Delete.cshtml" />
     <Content Include="Views\Product\Create.cshtml" />
     <Content Include="Views\Procurements\Create.cshtml" />
     <Content Include="Views\Product_storage\Index.cshtml" />
+    <Content Include="Views\Product\SearchCategory.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

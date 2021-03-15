@@ -11,6 +11,7 @@ namespace StoreAPI.Models
         [Key]
         public int id_category { get; set; }
         [Required, MaxLength(20)]
+        [Display(Name = "Название категории")]
         public string name_category { get; set; }
 
         public ICollection<Product> products { get; set; }
