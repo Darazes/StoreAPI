@@ -1,24 +1,87 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿html, body {
+    height: 100%;
 }
 
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+body {
+    margin:0;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
-.dl-horizontal dt {
-    white-space: normal;
+header {
+    position: relative;
+    width: auto;
+    height: 7vh;
+    font-size: 30px;
+    font-weight: bold;
+    margin: 0;
+    display: block;
+    width: 100%;
+    background-color: slategray;
+
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
+    header a {
+        font-family: 'Century Gothic';
+        padding: 15px 0px 0px 20px;
+        display: inline-block;
+        color: white !important;
+    }
+
+section {
+    position:relative;
+    height: 91.8vh;
 }
+
+.nav {
+    padding-top: 12px;
+    display: inline-block;
+    width: 15%;
+    float: left;
+    background-color: SandyBrown;
+}
+
+.content {
+    display: inline-block;
+    width: 85%;
+    background-color: white;
+}
+
+    .content > * {
+        padding-left: 20px;
+        font-family: 'Century Gothic';
+    }
+
+
+ul {
+
+    padding: 0;
+    margin: 0;
+}
+
+.menu-li {
+
+    font-size: 24px;
+    padding: 10px 10px 20px 20px;
+    list-style-type: none;
+    font-family:'Century Gothic';
+
+}
+
+a {
+    color: #000 !important;
+    text-decoration: none
+}
+
+    li a:hover {
+        color: white !important;
+    }
+
+footer {
+    display:block;
+    position:absolute;
+    left:20%;
+    bottom: 0;
+    width:80%;
+    text-align:center;
+}
+
+

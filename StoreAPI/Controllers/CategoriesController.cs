@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
+using Newtonsoft.Json;
 
 namespace StoreAPI.Controllers
 {
@@ -19,6 +20,15 @@ namespace StoreAPI.Controllers
         public async Task<ActionResult> Index()
         {
             return View(await db.Categories.ToListAsync());
+        }
+
+        public string IndexJson()
+        {
+            List<Category> categories = db.Categories.ToList();
+
+            string json = JsonConvert.SerializeObject(categories, Formatting.Indented);
+
+            return json;
         }
 
         // GET: Categories/Details/5

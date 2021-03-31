@@ -1,12 +1,11 @@
-﻿using StoreAPI.Models;
-using System;
+﻿using Newtonsoft.Json;
+using StoreAPI.Models;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
 using System.Data.Entity;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace StoreAPI.Controllers
 {
@@ -20,6 +19,15 @@ namespace StoreAPI.Controllers
             var products = db.Products.Include(c => c.category);
 
             return View(products.ToList());
+        }
+
+        public string IndexJson()
+        {
+            List<Product> products = db.Products.ToList();
+
+            string json = JsonConvert.SerializeObject(products, Formatting.Indented);
+
+            return json;
         }
 
         public ActionResult Search(string searching)
