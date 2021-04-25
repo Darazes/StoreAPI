@@ -5,6 +5,11 @@
 <h3>Вы хотите удалить товар?</h3>
 <div>
     <br>
+
+    <div>
+        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") />
+    </div>
+
     <dl class="dl-horizontal">
         <dt>
             Имя категории
@@ -40,7 +45,8 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

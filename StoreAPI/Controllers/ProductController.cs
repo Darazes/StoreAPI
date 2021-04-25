@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Mvc;
 
 namespace StoreAPI.Controllers
@@ -49,10 +50,23 @@ namespace StoreAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase upload)
         {
-            db.Products.Add(product);
-            db.SaveChanges();
+            if (upload != null)
+            {
+                // Получение имени файла
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+
+                // Сохранение файла с новым именем эквивалентным названию товара
+                upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+
+                // Добавление имени файла товару в базе
+                //product.image_url = "~/Files/" + fileName;
+                //Добавление товара в базу
+                db.Products.Add(product);
+                db.SaveChanges();
+            }
+
             return RedirectToAction("Index");
         }
 
@@ -95,11 +109,34 @@ namespace StoreAPI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Edit(Product product)
+        public ActionResult Edit(Product product, HttpPostedFileBase upload)
         {
-            db.Entry(product).State = EntityState.Modified;
 
-            db.SaveChanges();
+            if (upload != null)
+            {
+                // Получение имени файла
+                string fileName = System.IO.Path.GetFileName(upload.FileName);
+
+
+                //Получение пути изображения
+                string fullPath = Server.MapPath("~/Files/" + product.name_product + ".png");
+
+                //Проверка есть ли заданный путь
+                if (System.IO.File.Exists(fullPath))
+                {
+                    //Удаление предыдущего изображения
+                    System.IO.File.Delete(fullPath);
+
+                    //Сохранение нового изображения
+                    upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+
+                }
+
+                db.Entry(product).State = EntityState.Modified;
+
+                db.SaveChanges();
+
+            }
 
             return RedirectToAction("Index");
         }
@@ -128,7 +165,18 @@ namespace StoreAPI.Controllers
         {
             Product product = await db.Products.FindAsync(id);
             db.Products.Remove(product);
-            await db.SaveChangesAsync();
+
+            //Получение пути изображения
+            string fullPath = Server.MapPath("~/Files/" + product.name_product + ".png");
+
+            //Проверка есть ли заданный путь
+            if (System.IO.File.Exists(fullPath))
+            {
+                //Удаление предыдущего изображения
+                System.IO.File.Delete(fullPath);
+            }
+
+                await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 

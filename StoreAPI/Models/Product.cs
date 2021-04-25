@@ -10,15 +10,19 @@ namespace StoreAPI.Models
     {
         [Key]
         public int id_product { get; set; }
+
         [Required, MaxLength(40)]
         [Display(Name = "Название товара")]
         public string name_product { get; set; }
+
         [Required]
         [Display(Name = "Цена товара")]
         public float cost_product { get; set; }
+
         [Required, MaxLength(400)]
         [Display(Name = "Описание товара")]
         public string content { get; set; }
+
         [Required]
         public int id_category { get; set; }
 
