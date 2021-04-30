@@ -45,11 +45,16 @@ section {
     background-color: white;
 }
 
-    .content > * {
-        padding-left: 20px;
-        font-family: 'Century Gothic';
-    }
+.form_group {
+    margin-bottom: 10px;
+    padding-left: 20px;
+    font-family: 'Century Gothic';
+}
 
+.content > * {
+    padding-left: 20px;
+    font-family: 'Century Gothic';
+}
 
 ul {
 
