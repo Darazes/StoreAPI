@@ -5,32 +5,26 @@
 <h3>Вы хотите удалить поставку?</h3>
 <div>
     <br>
-    <dl class="dl-horizontal">
-        <dt>
+    <div>
+        <div>
             @Html.DisplayNameFor(model => model.date_procurement)
-        </dt>
 
-        <dd>
             @Html.DisplayFor(model => model.date_procurement)
-        </dd>
+        </div>
 
-        <dt>
+        <div>
             @Html.DisplayNameFor(model => model.count_procurement)
-        </dt>
 
-        <dd>
             @Html.DisplayFor(model => model.count_procurement)
-        </dd>
+        </div>
 
-        <dt>
+        <div>
             @Html.DisplayNameFor(model => model.id_product)
-        </dt>
 
-        <dd>
             @Html.DisplayFor(model => model.product.name_product)
-        </dd>
+        </div>
 
-    </dl>
+    </div>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

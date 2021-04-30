@@ -5,6 +5,7 @@
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.product.name_product)
         </th>
@@ -16,6 +17,9 @@
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                <img src=@Url.Content("~/Files/" + item.product.name_product + ".png") class="small_img" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.product.name_product)
             </td>

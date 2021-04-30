@@ -52,22 +52,27 @@ namespace StoreAPI.Controllers
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase upload)
         {
-            if (upload != null)
+
+            if (ModelState.IsValid)
             {
-                // Получение имени файла
-                string fileName = System.IO.Path.GetFileName(upload.FileName);
+                if (upload != null)
+                {
+                    // Получение имени файла
+                    string fileName = System.IO.Path.GetFileName(upload.FileName);
 
-                // Сохранение файла с новым именем эквивалентным названию товара
-                upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+                    // Сохранение файла с новым именем эквивалентным названию товара
+                    upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
 
-                // Добавление имени файла товару в базе
-                //product.image_url = "~/Files/" + fileName;
-                //Добавление товара в базу
-                db.Products.Add(product);
-                db.SaveChanges();
+                    // Добавление имени файла товару в базе
+                    //product.image_url = "~/Files/" + fileName;
+                    //Добавление товара в базу
+                    db.Products.Add(product);
+                    db.SaveChanges();
+                }
             }
 
             return RedirectToAction("Index");
+
         }
 
         [HttpGet]

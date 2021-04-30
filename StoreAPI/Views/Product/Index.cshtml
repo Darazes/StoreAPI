@@ -1,45 +1,37 @@
 ﻿@model IEnumerable<StoreAPI.Models.Product>
 
-<h2>Товары</h2>
+<div>
+    <h2>Товары</h2>
 
-<table class="table">
+    <ul>
+        <li>@Html.ActionLink("Поиск по товарам", "Search")</li>
+        <li>@Html.ActionLink("Поиск по категориям", "SearchCategory")</li>
+        <li>@Html.ActionLink("Добавить товар", "Create")</li>
+    </ul>
+</div>
+
+@foreach (var item in Model)
+{
+
+<table>
     <tr>
-        <td>@Html.ActionLink("Поиск по товарам", "Search")</td>
-        <td>@Html.ActionLink("Поиск по категориям", "SearchCategory")</td>
-        <td>@Html.ActionLink("Добавить товар", "Create")</td>
-    </tr>
-</table>
+        <td>
+            <img src=@Url.Content("~/Files/" + item.name_product + ".png") class="img" />
+        </td>
 
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            Название продукта
-        </th>
-        <th>
-            Категория
-        </th>
-        <th></th>
-    </tr>
+        <td>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_product)</span> : @Html.DisplayFor(modelItem => item.name_product)</p>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src=@Url.Content("~/Files/" + item.name_product + ".png") />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.name_product)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.category.name_category)
-            </td>
-            <td>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.category.name_category)</span> : @Html.DisplayFor(modelItem => item.category.name_category)</p>
+
+            <p>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.id_product }) |
                 @Html.ActionLink("Подробнее", "Details", new { id = item.id_product }) |
                 @Html.ActionLink("Удалить", "Delete", new { id = item.id_product })
-            </td>
-        </tr>
-    }
-
+            </p>
+        </td>
+    </tr>
 </table>
+
+}
+

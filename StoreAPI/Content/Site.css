@@ -19,41 +19,120 @@ header {
 
 }
 
-    header a {
-        font-family: 'Century Gothic';
-        padding: 15px 0px 0px 20px;
-        display: inline-block;
-        color: white !important;
-    }
+header a {
+    font-family: 'Century Gothic';
+    padding: 15px 0px 0px 20px;
+    display: inline-block;
+    color: white !important;
+}
 
 section {
     position:relative;
-    height: 91.8vh;
-}
-
-.nav {
-    padding-top: 12px;
-    display: inline-block;
-    width: 15%;
-    float: left;
-    background-color: SandyBrown;
+    height: 93vh;
 }
 
 .content {
     display: inline-block;
-    width: 85%;
+    width: 100%;
     background-color: white;
+
 }
 
-.form_group {
+form * {
     margin-bottom: 10px;
-    padding-left: 20px;
-    font-family: 'Century Gothic';
+}
+
+.content table tr td {
+    padding: 10px;
+}
+
+.content ul li {
+    display:inline;
+    margin-right:10px;
+}
+
+.content .text_bold {
+    font-weight: bold;
 }
 
 .content > * {
-    padding-left: 20px;
     font-family: 'Century Gothic';
+    text-align:center;
+    margin: 10px auto;
+}
+
+.content .img {
+    margin-right: 20px;
+    width: 200px;
+    height: 200px;
+}
+
+.content .small_img {
+    width: 100px;
+    height: 100px;
+}
+
+
+textarea {
+    width: 400px;
+    resize: vertical;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    height: 100px;
+}
+
+input{
+    width: 230px;
+    resize: vertical;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    height: 10px;
+}
+
+.file::after {
+    display:inline-block;
+    width: 200px;
+    color: white;
+    background-color: slategray;
+    height: 15px;
+    content: "Загрузить изображение";
+    padding: 20px;
+    border-radius: 20px;
+}
+
+input[type=file] {
+    width: 190px;
+    opacity: 0;
+    position: absolute;
+    margin: 0 !important;
+    padding-bottom: 25px;
+    resize: none;
+}
+
+
+input[type=submit] {
+    width: 260px;
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    height: auto !important;
+}
+
+select {
+    width: 230px;
+    resize: vertical;
+    padding: 15px;
+    border-radius: 15px;
+    border: 0;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
 }
 
 ul {
@@ -62,13 +141,19 @@ ul {
     margin: 0;
 }
 
+.menu {
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+}
+
 .menu-li {
 
+    display: inline;
     font-size: 24px;
     padding: 10px 10px 20px 20px;
     list-style-type: none;
-    font-family:'Century Gothic';
-
+    font-family: 'Century Gothic';
 }
 
 a {
@@ -76,17 +161,12 @@ a {
     text-decoration: none
 }
 
-    li a:hover {
-        color: white !important;
-    }
+li a:hover {
+    opacity: 0.5 !important;
+}
 
-footer {
-    display:block;
-    position:absolute;
-    left:20%;
-    bottom: 0;
-    width:80%;
-    text-align:center;
+.home {
+    position: absolute;
 }
 
 

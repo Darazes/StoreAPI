@@ -12,12 +12,12 @@
     @Html.AntiForgeryToken()
     
 <div class="form-horizontal">
-    <hr />
+
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.id_product)
 
     <div>
-        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") />
+        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") class="img"/>
     </div>
 
 

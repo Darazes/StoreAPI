@@ -10,44 +10,22 @@
     <br>
 
     <div>
-        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") />
+        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") class="img" />
     </div>
 
-    <dl class="dl-horizontal">
+    <div>
 
-        <dt>
-            Имя категории
-        </dt>
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.category.name_category)</span> : @Html.DisplayFor(model => model.category.name_category)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.category.name_category)
-        </dd>
 
-        <dt>
-            Название продукта
-        </dt>
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_product)</span> : @Html.DisplayFor(model => model.name_product)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.name_product)
-        </dd>
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_product)</span> : @Html.DisplayFor(model => model.cost_product)</p>
 
-        <dt>
-            Цена продукта
-        </dt>
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.content)</span> : @Html.DisplayFor(model => model.content)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.cost_product)
-        </dd>
+    </div>
 
-        <dt>
-            Описание
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.content)
-        </dd>
-
-    </dl>
 </div>
 <p>
     @Html.ActionLink("Редактировать продукт", "Edit", new { id = Model.id_product }) |
