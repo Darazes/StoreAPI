@@ -81,7 +81,8 @@ namespace StoreAPI.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Пользователь с таким логином уже существует");
+                    ViewBag.error = "Такого пользователя не существует";
+                    return View();
                 }
             }
 
@@ -89,8 +90,16 @@ namespace StoreAPI.Controllers
         }
         public ActionResult Logoff()
         {
-            FormsAuthentication.SignOut();
-            return RedirectToAction("Index", "Home");
+            if (User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.SignOut();
+                return RedirectToAction("Index", "Home");
+            }
+            else 
+            {
+                ViewBag.account = "Войти";
+                return RedirectToAction("Login", "Customers");
+            }
         }
     
 
@@ -101,13 +110,13 @@ namespace StoreAPI.Controllers
         }
 
         // GET: Customers/Details/5
-        public async Task<ActionResult> Details(int? id)
+        public async Task<ActionResult> Account()
         {
-            if (id == null)
+            if (!User.Identity.IsAuthenticated)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = await db.Customers.FindAsync(id);
+            Customer customer = await db.Customers.FindAsync(User.Identity.Name);
             if (customer == null)
             {
                 return HttpNotFound();

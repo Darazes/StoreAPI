@@ -28,6 +28,8 @@ namespace StoreAPI.Models
 
         public Category category { get; set; }
 
+        public string image_url { get; set; }
+
         public ICollection<Procurement> procurements { get; set; }
 
         public ICollection<Product_request> product_requests { get; set; }

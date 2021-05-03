@@ -10,12 +10,20 @@ namespace StoreAPI.Models
     {
         [Key]
         public int id_customer { get; set; }
+
+        [Display(Name = "Логин")]
         [Required, MaxLength(30)]
         public string login { get; set; }
+
+        [Display(Name = "Пароль")]
         [Required, MaxLength(30)]
         public string password { get; set; }
+
+        [Display(Name = "Телефон")]
         [Required, MaxLength(20)]
         public string phone { get; set; }
+
+        [Display(Name = "Адрес")]
         [Required, MaxLength(100)]
         public string adress_customer { get; set; }
 

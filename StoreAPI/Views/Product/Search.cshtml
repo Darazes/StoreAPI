@@ -44,7 +44,7 @@
     {
         <tr>
             <td>
-                <img src=@Url.Content("~/Files/" + item.name_product + ".png") class="small_img" />
+                <img src=@Url.Content(item.image_url) class="small_img" />
             </td>
             <td>
                 @Html.DisplayFor(model => item.name_product)

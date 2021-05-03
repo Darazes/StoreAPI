@@ -14,12 +14,16 @@
 
         <span class="home">@Html.ActionLink("Админ панель", "Index", "Home")</span>
 
+        <span class="account">@ViewBag.account @Html.ActionLink("Вход/Выход", "Logoff", "Customers")</span>
+
         <ul class="menu">
             <li class="menu-li">@Html.ActionLink("Поставки", "Index", "Procurements")</li>
             <li class="menu-li">@Html.ActionLink("Товары", "Index", "Product")</li>
             <li class="menu-li">@Html.ActionLink("Категории", "Index", "Categories")</li>
             <li class="menu-li">@Html.ActionLink("Типы", "Index", "Types")</li>
         </ul>
+
+
 
 
     </header>

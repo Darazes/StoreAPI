@@ -14,9 +14,9 @@ namespace StoreAPI.Controllers
 
         public ActionResult Index()
         {
-            var players = db.Products.Include(c => c.category);
+            ViewBag.account = User.Identity.Name;
 
-            return View(players.ToList());
+            return View();
         }
 
         public ActionResult About()

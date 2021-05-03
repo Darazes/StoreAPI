@@ -292,6 +292,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Customers\Register.cshtml" />
     <Content Include="Views\Customers\Login.cshtml" />
+    <Content Include="Views\Customers\Account.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

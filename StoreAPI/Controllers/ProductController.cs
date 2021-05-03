@@ -15,6 +15,7 @@ namespace StoreAPI.Controllers
 
         StoreContext db = new StoreContext();
 
+        [Authorize]
         public ActionResult Index()
         {
             var products = db.Products.Include(c => c.category);
@@ -31,6 +32,7 @@ namespace StoreAPI.Controllers
             return json;
         }
 
+        [Authorize]
         public ActionResult Search(string searching)
         {
             return View(db.Products.Where(n => n.name_product.Contains(searching) || searching == null).Include(c => c.category).ToList());
@@ -41,7 +43,7 @@ namespace StoreAPI.Controllers
             return View(db.Products.Where(n => n.category.name_category.Contains(searching) || searching == null).Include(c => c.category).ToList());
         }
 
-
+        [Authorize]
         [HttpGet]
         public ActionResult Create()
         {
@@ -58,13 +60,18 @@ namespace StoreAPI.Controllers
                 if (upload != null)
                 {
                     // Получение имени файла
-                    string fileName = System.IO.Path.GetFileName(upload.FileName);
+                    //string fileName = System.IO.Path.GetFileName(upload.FileName);
 
                     // Сохранение файла с новым именем эквивалентным названию товара
                     upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
 
-                    // Добавление имени файла товару в базе
-                    //product.image_url = "~/Files/" + fileName;
+                    //Изменение имени файла для пути с заменёнными пробелами
+                    string namefile = product.name_product.Replace(" ", "%20");
+
+                    // Добавление пути изображения товару в базе
+
+                    product.image_url = ("/Files/" + namefile + ".png");
+
                     //Добавление товара в базу
                     db.Products.Add(product);
                     db.SaveChanges();
@@ -75,6 +82,7 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -94,6 +102,7 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -113,6 +122,7 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize]
         [HttpPost]
         public ActionResult Edit(Product product, HttpPostedFileBase upload)
         {
@@ -146,6 +156,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize]
         [HttpGet]
         public async Task<ActionResult> Delete(int? id)
         {
@@ -164,6 +175,7 @@ namespace StoreAPI.Controllers
             return View(product);
         }
 
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

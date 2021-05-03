@@ -17,7 +17,7 @@
     @Html.HiddenFor(model => model.id_product)
 
     <div>
-        <img src=@Url.Content("~/Files/" + Model.name_product + ".png") class="img"/>
+        <img src=@Url.Content(Model.image_url) class="img"/>
     </div>
 
 
@@ -53,7 +53,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="file">
         <input type="file" name="upload" />
     </div>
 
