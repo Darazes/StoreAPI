@@ -101,10 +101,10 @@ namespace StoreAPI.Controllers
                 return RedirectToAction("Login", "Customers");
             }
         }
-    
 
-    // GET: Customers
-    public async Task<ActionResult> Index()
+
+        [Authorize]
+        public async Task<ActionResult> Index()
         {
             return View(await db.Customers.ToListAsync());
         }
@@ -124,30 +124,8 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
 
-        // POST: Customers/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer customer)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Customers.Add(customer);
-                await db.SaveChangesAsync();
-                return RedirectToAction("Index");
-            }
-
-            return View(customer);
-        }
-
-        // GET: Customers/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -165,6 +143,7 @@ namespace StoreAPI.Controllers
         // POST: Customers/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer customer)
@@ -178,7 +157,7 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        // GET: Customers/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -193,7 +172,7 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

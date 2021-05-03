@@ -15,13 +15,13 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        // GET: Procurements
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             return View(await db.Procurements.Include(x =>x.product).ToListAsync());
         }
 
-        // GET: Procurements/Details/5
+        [Authorize]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,7 +38,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        // GET: Procurements/Create
+        [Authorize]
         public ActionResult Create()
         {
 
@@ -51,6 +51,7 @@ namespace StoreAPI.Controllers
         // POST: Procurements/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
@@ -78,7 +79,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        // GET: Procurements/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
@@ -98,6 +99,7 @@ namespace StoreAPI.Controllers
         // POST: Procurements/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
@@ -112,7 +114,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        // GET: Procurements/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -127,7 +129,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        // POST: Procurements/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

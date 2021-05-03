@@ -16,7 +16,7 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        // GET: Categories
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             return View(await db.Categories.ToListAsync());
@@ -31,7 +31,7 @@ namespace StoreAPI.Controllers
             return json;
         }
 
-        // GET: Categories/Details/5
+        [Authorize]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +46,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        // GET: Categories/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -55,6 +55,7 @@ namespace StoreAPI.Controllers
         // POST: Categories/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_category,name_category")] Category category)
@@ -69,7 +70,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        // GET: Categories/Edit/5
+        [Authorize]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,6 +88,7 @@ namespace StoreAPI.Controllers
         // POST: Categories/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_category,name_category")] Category category)
@@ -100,7 +102,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        // GET: Categories/Delete/5
+        [Authorize]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -115,7 +117,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        // POST: Categories/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

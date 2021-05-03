@@ -293,6 +293,7 @@
     <Content Include="Views\Customers\Register.cshtml" />
     <Content Include="Views\Customers\Login.cshtml" />
     <Content Include="Views\Customers\Account.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
@@ -307,7 +308,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Files\" />
-    <Folder Include="Views\Account\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -15,7 +15,7 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        // GET: Product_storage
+        [Authorize]
         public async Task<ActionResult> Index()
         {
 
@@ -26,6 +26,7 @@ namespace StoreAPI.Controllers
             return View(allstorages);
         }
 
+        [Authorize]
         private async Task<ActionResult> Create()
         {
             var allprocurements = await db.Procurements.ToListAsync();
