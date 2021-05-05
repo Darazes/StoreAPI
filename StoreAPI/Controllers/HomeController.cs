@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using StoreAPI.Models;
-using System.Data.Entity;
 
 namespace StoreAPI.Controllers
 {
@@ -12,7 +7,7 @@ namespace StoreAPI.Controllers
     {
         StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
             ViewBag.account = User.Identity.Name;

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
 using Newtonsoft.Json;
@@ -16,9 +13,11 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.account = User.Identity.Name;
+
             return View(await db.Categories.ToListAsync());
         }
 
@@ -31,7 +30,7 @@ namespace StoreAPI.Controllers
             return json;
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,7 +45,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
@@ -55,7 +54,7 @@ namespace StoreAPI.Controllers
         // POST: Categories/Create
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_category,name_category")] Category category)
@@ -70,7 +69,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -88,7 +87,7 @@ namespace StoreAPI.Controllers
         // POST: Categories/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_category,name_category")] Category category)
@@ -102,7 +101,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -117,7 +116,7 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -128,6 +127,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

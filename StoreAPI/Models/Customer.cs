@@ -27,6 +27,10 @@ namespace StoreAPI.Models
         [Required, MaxLength(100)]
         public string adress_customer { get; set; }
 
+        public int roleid { get; set; }
+
+        public Role role { get; set; }
+
         public ICollection<Request> requests { get; set; }
 
         public Customer()

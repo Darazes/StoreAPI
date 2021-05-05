@@ -15,13 +15,16 @@ namespace StoreAPI.Controllers
 
         StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Index()
         {
+            ViewBag.account = User.Identity.Name;
+
             var products = db.Products.Include(c => c.category);
 
             return View(products.ToList());
         }
+
 
         public string IndexJson()
         {
@@ -32,18 +35,19 @@ namespace StoreAPI.Controllers
             return json;
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Search(string searching)
         {
             return View(db.Products.Where(n => n.name_product.Contains(searching) || searching == null).Include(c => c.category).ToList());
         }
 
+        [Authorize(Roles = "admin")]
         public ActionResult SearchCategory(string searching)
         {
             return View(db.Products.Where(n => n.category.name_category.Contains(searching) || searching == null).Include(c => c.category).ToList());
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult Create()
         {
@@ -82,7 +86,7 @@ namespace StoreAPI.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult Details(int? id)
         {
@@ -102,7 +106,7 @@ namespace StoreAPI.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public ActionResult Edit(int? id)
         {
@@ -122,7 +126,7 @@ namespace StoreAPI.Controllers
 
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Edit(Product product, HttpPostedFileBase upload)
         {
@@ -156,7 +160,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult> Delete(int? id)
         {
@@ -175,7 +179,7 @@ namespace StoreAPI.Controllers
             return View(product);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)

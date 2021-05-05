@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
-using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
 
@@ -15,9 +9,10 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.account = User.Identity.Name;
 
             ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
 
@@ -26,7 +21,7 @@ namespace StoreAPI.Controllers
             return View(allstorages);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         private async Task<ActionResult> Create()
         {
             var allprocurements = await db.Procurements.ToListAsync();
@@ -58,6 +53,7 @@ namespace StoreAPI.Controllers
             return View(allstorages);
         }
 
+        [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

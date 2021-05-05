@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
 
@@ -15,13 +10,15 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.account = User.Identity.Name;
+
             return View(await db.Types.ToListAsync());
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -36,16 +33,13 @@ namespace StoreAPI.Controllers
             return View(type);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Types/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_type_delivery,name_type")] Models.Type  type)
@@ -60,7 +54,7 @@ namespace StoreAPI.Controllers
             return View(type);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,10 +69,7 @@ namespace StoreAPI.Controllers
             return View(type);
         }
 
-        // POST: Types/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_type_delivery,name_type")] Models.Type  type)
@@ -92,7 +83,7 @@ namespace StoreAPI.Controllers
             return View(type);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -107,7 +98,7 @@ namespace StoreAPI.Controllers
             return View(type);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -118,6 +109,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

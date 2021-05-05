@@ -30,8 +30,32 @@ namespace StoreAPI.Models
 
         public DbSet<Type> Types { get; set; }
 
+        public DbSet<Role> Roles { get; set; }
+
         public StoreContext() : base("StoreContext")
         { }
 
-    } 
+    }
+
+    public class StoreDbInitializer : CreateDatabaseIfNotExists<StoreContext>
+    {
+        protected override void Seed(StoreContext db)
+        {
+            db.Roles.Add(new Role { id = 1, name = "admin" });
+            db.Roles.Add(new Role { id = 2, name = "user" });
+
+            db.Customers.Add(new Customer
+            {
+                id_customer = 1,
+                login = "admin",
+                password = "aDminChik",
+                phone = "-",
+                adress_customer = "-",
+                roleid = 1
+            }
+            );
+            base.Seed(db);
+        }
+    }
+
 }

@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
+﻿using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
 
@@ -15,13 +10,15 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.account = User.Identity.Name;
+
             return View(await db.Procurements.Include(x =>x.product).ToListAsync());
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -38,7 +35,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public ActionResult Create()
         {
 
@@ -48,10 +45,7 @@ namespace StoreAPI.Controllers
             return View();
         }
 
-        // POST: Procurements/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
@@ -79,7 +73,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
@@ -96,10 +90,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        // POST: Procurements/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
@@ -114,7 +105,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -129,7 +120,7 @@ namespace StoreAPI.Controllers
             return View(procurement);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -149,6 +140,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)

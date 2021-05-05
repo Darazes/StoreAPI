@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
+﻿using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using StoreAPI.Models;
 using System.Web.Security;
@@ -66,6 +63,7 @@ namespace StoreAPI.Controllers
                 if (customer == null)
                 {
                     // создаем нового пользователя
+                    model.roleid = 2;
 
                     db.Customers.Add(model);
                     db.SaveChanges();
@@ -103,13 +101,15 @@ namespace StoreAPI.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
+            ViewBag.account = User.Identity.Name;
+
             return View(await db.Customers.ToListAsync());
         }
 
-        // GET: Customers/Details/5
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Account()
         {
             if (!User.Identity.IsAuthenticated)
@@ -125,7 +125,7 @@ namespace StoreAPI.Controllers
         }
 
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -143,7 +143,7 @@ namespace StoreAPI.Controllers
         // POST: Customers/Edit/5
         // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
         // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer customer)
@@ -157,7 +157,7 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -172,7 +172,7 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        [Authorize]
+        [Authorize(Roles = "admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -183,6 +183,7 @@ namespace StoreAPI.Controllers
             return RedirectToAction("Index");
         }
 
+        [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)
         {
             if (disposing)
