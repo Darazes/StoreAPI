@@ -38,6 +38,14 @@ namespace StoreAPI.Models
             requests = new List<Request>();
         }
 
+    }
+
+    public class CustomerCustom
+    {
+        public string login { get; set; }
+        public string password { get; set; }
+        public string phone { get; set; }
+        public string adress_customer { get; set; }
 
     }
 }

@@ -6,12 +6,25 @@ using System.Net;
 using System.Web.Mvc;
 using StoreAPI.Models;
 using System.Web.Security;
+using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace StoreAPI.Controllers
 {
     public class CustomersController : Controller
     {
         private StoreContext db = new StoreContext();
+
+        [HttpGet]
+        public string IndexJson()
+        {
+
+            IEnumerable<Customer> customers = db.Customers.ToList();
+
+            string json = JsonConvert.SerializeObject(customers);
+
+            return json;
+        }
 
         public ActionResult Login()
         {
@@ -50,6 +63,7 @@ namespace StoreAPI.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
@@ -62,7 +76,7 @@ namespace StoreAPI.Controllers
 
                 if (customer == null)
                 {
-                    // создаем нового пользователя
+                   
                     model.roleid = 2;
 
                     db.Customers.Add(model);
@@ -86,6 +100,40 @@ namespace StoreAPI.Controllers
 
             return View(model);
         }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        public string RegisterJson(CustomerCustom model)
+        {
+            Customer customer = new Customer
+            {
+                id_customer = db.Customers.ToList().LastOrDefault().id_customer + 1,
+                login = model.login,
+                password = model.password,
+                phone = model.phone,
+                adress_customer = model.adress_customer,
+                roleid = 2,
+                role = null,
+                requests = new List<Request>()
+            };
+
+
+            if (db.Customers.Where(u => u.login == customer.login).FirstOrDefault() == null)
+            {
+                db.Customers.Add(customer);
+                db.SaveChanges();
+            }
+            else
+            {
+                return "Пользователь " + customer.login + " уже существует";
+            }
+            Customer customer_db = db.Customers.Where(u => u.login == customer.login && u.password == customer.password).FirstOrDefault();
+
+            if (customer_db != null) return "Пользователь " + customer.login + " успешно добавлен";
+            else return "Ошибка добавления пользователя";
+
+        }
+
         public ActionResult Logoff()
         {
             if (User.Identity.IsAuthenticated)
