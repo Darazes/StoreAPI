@@ -245,6 +245,7 @@
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\Product_storageController.cs" />
+    <Compile Include="Controllers\RequestsController.cs" />
     <Compile Include="Controllers\TypesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -255,11 +256,9 @@
     <Compile Include="Models\Procurement.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Product_request.cs" />
-    <Compile Include="Models\Product_shipment.cs" />
     <Compile Include="Models\Product_storage.cs" />
     <Compile Include="Models\Request.cs" />
     <Compile Include="Models\Role.cs" />
-    <Compile Include="Models\Shipment.cs" />
     <Compile Include="Models\StoreContext.cs" />
     <Compile Include="Models\Type.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -410,6 +409,12 @@
     <Content Include="Views\Customers\Login.cshtml" />
     <Content Include="Views\Customers\Account.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Requests\Create.cshtml" />
+    <Content Include="Views\Requests\Delete.cshtml" />
+    <Content Include="Views\Requests\Details.cshtml" />
+    <Content Include="Views\Requests\Edit.cshtml" />
+    <Content Include="Views\Requests\Index.cshtml" />
+    <Content Include="Views\Requests\СonfirmDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

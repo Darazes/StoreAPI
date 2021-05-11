@@ -12,6 +12,7 @@ namespace StoreAPI.Models
         public int id_type_delivery { get; set; }
 
         [Required, MaxLength(20)]
+        [Display(Name = "Тип доставки")]
         public string name_type { get; set; }
 
         public ICollection<Delivery> deliveries { get; set; }

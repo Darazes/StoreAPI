@@ -25,10 +25,13 @@ namespace StoreAPI.Models
 
         [Required]
         public int count { get; set; }
-
-
         
+    }
 
-        
+    public class Product_request_custom
+    {
+        public int id_request { get; set; }
+        public int id_product { get; set; }
+        public int count { get; set; }
     }
 }

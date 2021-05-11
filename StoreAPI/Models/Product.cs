@@ -34,9 +34,9 @@ namespace StoreAPI.Models
 
         public ICollection<Product_request> product_requests { get; set; }
 
-        public ICollection<Product_shipment> product_shipments { get; set; }
-
         public ICollection<Product_storage> product_storages { get; set; }
+
+        public ICollection<Delivery> deliveries { get; set; }
 
 
         public Product()
@@ -46,9 +46,9 @@ namespace StoreAPI.Models
 
             product_requests = new List<Product_request>();
 
-            product_shipments = new List<Product_shipment>();
-
             product_storages = new List<Product_storage>();
+
+            deliveries = new List<Delivery>();
 
         }
 

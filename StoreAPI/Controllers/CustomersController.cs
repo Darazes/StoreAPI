@@ -164,7 +164,7 @@ namespace StoreAPI.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = await db.Customers.FindAsync(User.Identity.Name);
+            Customer customer = await db.Customers.Where(c => c.login == User.Identity.Name).FirstOrDefaultAsync();
             if (customer == null)
             {
                 return HttpNotFound();
@@ -188,9 +188,6 @@ namespace StoreAPI.Controllers
             return View(customer);
         }
 
-        // POST: Customers/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]

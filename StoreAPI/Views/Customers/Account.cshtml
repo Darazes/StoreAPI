@@ -4,49 +4,23 @@
     ViewBag.Title = "View";
 }
 
-<h2>View</h2>
+<h2>Информация об аккаунте</h2>
 
 <div>
-    <h4>Customer</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.login)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.login)
-        </dd>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.login)</span> : @Html.DisplayFor(model => model.login)</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.password)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.password)</span> : @Html.DisplayFor(model => model.password)</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.phone)
-        </dt>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.phone)</span> : @Html.DisplayFor(model => model.phone)</p>
 
-        <dd>
-            @Html.DisplayFor(model => model.phone)
-        </dd>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.adress_customer)</span> : @Html.DisplayFor(model => model.adress_customer)</p>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.adress_customer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adress_customer)
-        </dd>
-
-    </dl>
 </div>
+
 
 @using (Html.BeginForm("Logoff", "Customers", FormMethod.Get))
 {
-    @Html.TextBox("Выйти")
     <input type="submit" value="Выйти" class="btn btn-default" />
 }

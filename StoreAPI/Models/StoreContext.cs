@@ -20,13 +20,13 @@ namespace StoreAPI.Models
 
         public DbSet<Product_request> Product_requests { get; set; }
 
-        public DbSet<Product_shipment> Product_shipment { get; set; }
+        //public DbSet<Product_shipment> Product_shipment { get; set; }
 
         public DbSet<Product_storage> Product_storage { get; set; }
 
         public DbSet<Request> Requests { get; set; }
 
-        public DbSet<Shipment> Shipments { get; set; }
+        //public DbSet<Shipment> Shipments { get; set; }
 
         public DbSet<Type> Types { get; set; }
 

@@ -1,0 +1,61 @@
+﻿@model StoreAPI.Models.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Заказ # @Html.DisplayFor(model => model.id_request)</h2>
+
+<div>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.customer.login)</span> : @Html.DisplayFor(model => model.customer.login)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.delivery.id_delivery)</span> : @Html.DisplayFor(model => model.delivery.id_delivery)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_request)</span> : @Html.DisplayFor(model => model.date_request)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.delivery.date_confirm)</span> : @ViewBag.dateShipment</p>
+
+
+</div>
+
+<h4>Список товаров в заказе</h4>
+
+<table class="table">
+
+    <tr>
+        <td>
+            ID товара
+        </td>
+        <td>
+            Количество
+        </td>
+    </tr>
+
+    @foreach (var item in Model.product_requests)
+    {
+        <tr>
+            <td>
+
+
+                @Html.DisplayFor(modelItem => item.id_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+        </tr>
+    }
+
+</table>
+
+@using (Html.BeginForm("Сonfirm" + "/" + Model.id_request, "Requests"))
+{
+    @Html.TextBox(Model.id_request.ToString(), FormMethod.Post, htmlAttributes: new { @class = "null" })
+    <input type="submit" value="Подтвердить заказ" class="btn btn-default" />
+}
+
+<p><span class="text_bold error">@ViewBag.error</span></p>
+
+<p>
+    @Html.ActionLink("К списку заказов", "Index")
+</p>

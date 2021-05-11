@@ -42,8 +42,8 @@ form * {
     margin-bottom: 10px;
 }
 
-.content table tr td {
-    padding: 10px;
+th {
+    padding: 10px !important;
 }
 
 .content ul li {
@@ -70,6 +70,14 @@ form * {
 .content .small_img {
     width: 100px;
     height: 100px;
+}
+
+.null {
+    display: none;
+}
+
+.error {
+    color: red;
 }
 
 

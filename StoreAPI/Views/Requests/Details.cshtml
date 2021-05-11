@@ -1,0 +1,80 @@
+﻿@model StoreAPI.Models.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Заказ # @Html.DisplayFor(model => model.id_request)</h2>
+
+<div>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.customer.login)</span> : @Html.DisplayFor(model => model.customer.login)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_request)</span> : @Html.DisplayFor(model => model.date_request)</p>
+
+    <div>
+        <span class="text_bold">@Html.DisplayNameFor(model => model.status)</span> :
+
+        @if (Model.status == 1)
+        {
+            <p>В обработке</p>;
+        }
+        else if (Model.status == 2)
+        {
+            <p>Доставляется</p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.delivery.date_confirm)</span> : @Html.DisplayFor(model => model.delivery.date_confirm)</p>
+        }
+        else
+        {
+            <p>Завершён</p>
+        }
+    </div>
+
+    <div>
+        <span class="text_bold">@Html.DisplayNameFor(model => model.delivery.delivered)</span> :
+
+        @if (Model.delivery.delivered == false)
+        {
+            <p>Доставка не подтверждена</p>;
+        }
+        else
+        {
+            <p>Доставка подтверждена</p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.delivery.date_delivery)</span> : @Html.DisplayFor(model => model.delivery.date_delivery)</p>
+        }
+    </div>
+
+</div>
+
+<h4>Список товаров в заказе</h4>
+
+<table class="table">
+
+    <tr>
+        <td>
+            ID товара
+        </td>
+        <td>
+            Количество
+        </td>
+    </tr>
+
+    @foreach (var item in Model.product_requests)
+    {
+        <tr>
+            <td>
+                
+
+                @Html.DisplayFor(modelItem => item.id_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("К списку заказов", "Index")
+</p>
