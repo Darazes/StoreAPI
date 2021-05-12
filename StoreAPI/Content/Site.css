@@ -80,6 +80,19 @@ th {
     color: red;
 }
 
+.processing {
+    color:orangered;
+}
+
+.delivery {
+    color: orange;
+}
+
+.final {
+    color: forestgreen;
+}
+
+
 
 textarea {
     width: 400px;

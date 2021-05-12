@@ -14,19 +14,13 @@ namespace StoreAPI.Models
 
         public DbSet<Customer> Customers { get; set; }
 
-        public DbSet<Delivery> Deliveries { get; set; }
-
         public DbSet<Procurement> Procurements { get; set; }
 
         public DbSet<Product_request> Product_requests { get; set; }
 
-        //public DbSet<Product_shipment> Product_shipment { get; set; }
-
         public DbSet<Product_storage> Product_storage { get; set; }
 
         public DbSet<Request> Requests { get; set; }
-
-        //public DbSet<Shipment> Shipments { get; set; }
 
         public DbSet<Type> Types { get; set; }
 
@@ -53,6 +47,7 @@ namespace StoreAPI.Models
                 adress_customer = "-",
                 roleid = 1
             }
+
             );
             base.Seed(db);
         }

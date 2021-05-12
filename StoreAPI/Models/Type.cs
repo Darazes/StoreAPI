@@ -13,13 +13,17 @@ namespace StoreAPI.Models
 
         [Required, MaxLength(20)]
         [Display(Name = "Тип доставки")]
-        public string name_type { get; set; }
+        public string name_type_delivery { get; set; }
 
-        public ICollection<Delivery> deliveries { get; set; }
+        [Required]
+        [Display(Name = "Цена доставки")]
+        public float cost_type_delivery { get; set; }
+
+        public ICollection<Request> requests { get; set; }
 
         public Type()
         {
-            deliveries = new List<Delivery>();
+            requests = new List<Request>();
         }
 
 

@@ -1,31 +1,23 @@
 ﻿@model StoreAPI.Models.Type
 
-@{
-    ViewBag.Title = "Delete";
-}
-
 <h2>Удаление типа доставки</h2>
 
 <h3>Вы хотите удалить тип доставки?</h3>
+
 <div>
-    <br>
-    <dl class="dl-horizontal">
-        <dt>
-            Название типа доставки
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name_type)
-        </dd>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_type_delivery)</span> : @Html.DisplayFor(model => model.name_type_delivery)</p>
 
-    </dl>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_type_delivery)</span> : @Html.DisplayFor(model => model.cost_type_delivery)</p>
 
-    @using (Html.BeginForm()) {
+
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
-        <div class="form-actions no-color">
-            <input type="submit" value="Удалить" class="btn btn-default" /> |
-            @Html.ActionLink("К списку типов доставки", "Index")
+        <div>
+            <input type="submit" value="Удалить" /> |
+            @Html.ActionLink("К списку товаров", "Index")
         </div>
     }
 </div>

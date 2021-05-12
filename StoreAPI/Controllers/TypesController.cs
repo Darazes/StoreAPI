@@ -42,7 +42,7 @@ namespace StoreAPI.Controllers
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "id_type_delivery,name_type")] Models.Type  type)
+        public async Task<ActionResult> Create([Bind(Include = "id_type_delivery,name_type_delivery,cost_type_delivery")] Models.Type  type)
         {
             if (ModelState.IsValid)
             {
@@ -72,7 +72,7 @@ namespace StoreAPI.Controllers
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "id_type_delivery,name_type")] Models.Type  type)
+        public async Task<ActionResult> Edit([Bind(Include = "id_type_delivery,name_type_delivery,cost_type_delivery")] Models.Type  type)
         {
             if (ModelState.IsValid)
             {

@@ -1,15 +1,17 @@
 ﻿@model IEnumerable<StoreAPI.Models.Type>
 
-
 <h2>Типы доставки</h2>
 
 <p>
-    @Html.ActionLink("Добавить тип доставки", "Create")
+    @Html.ActionLink("Добавить новый тип доставки", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            Название типа доставки
+            @Html.DisplayNameFor(model => model.name_type_delivery)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.cost_type_delivery)
         </th>
         <th></th>
     </tr>
@@ -17,7 +19,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.name_type)
+            @Html.DisplayFor(modelItem => item.name_type_delivery)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.cost_type_delivery)
         </td>
         <td>
             @Html.ActionLink("Редактировать", "Edit", new { id=item.id_type_delivery }) |

@@ -252,7 +252,6 @@
     </Compile>
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Customer.cs" />
-    <Compile Include="Models\Delivery.cs" />
     <Compile Include="Models\Procurement.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Product_request.cs" />
@@ -382,11 +381,6 @@
     <Content Include="Views\Categories\Edit.cshtml" />
     <Content Include="Views\Categories\Index.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
-    <Content Include="Views\Types\Create.cshtml" />
-    <Content Include="Views\Types\Delete.cshtml" />
-    <Content Include="Views\Types\Details.cshtml" />
-    <Content Include="Views\Types\Edit.cshtml" />
-    <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Procurements\Delete.cshtml" />
     <Content Include="Views\Procurements\Index.cshtml" />
     <Content Include="Views\Product\Search.cshtml" />
@@ -409,12 +403,14 @@
     <Content Include="Views\Customers\Login.cshtml" />
     <Content Include="Views\Customers\Account.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Requests\Create.cshtml" />
-    <Content Include="Views\Requests\Delete.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
-    <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="Views\Requests\СonfirmDetails.cshtml" />
+    <Content Include="Views\Requests\СonfirmDelivery.cshtml" />
+    <Content Include="Views\Types\Index.cshtml" />
+    <Content Include="Views\Types\Create.cshtml" />
+    <Content Include="Views\Types\Delete.cshtml" />
+    <Content Include="Views\Types\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

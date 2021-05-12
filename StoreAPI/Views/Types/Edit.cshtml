@@ -4,23 +4,29 @@
     ViewBag.Title = "Edit";
 }
 
-<h2>Изменение типа доставки</h2>
-
+<h2>Редактирование типа доставки</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <br>
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.id_type_delivery)
 
         <div class="form-group">
-            <p class="control-label col-md-2">Название типа доставки</p>
+            @Html.LabelFor(model => model.name_type_delivery, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.name_type, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.name_type, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.name_type_delivery, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.name_type_delivery, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cost_type_delivery, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cost_type_delivery, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.cost_type_delivery, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -33,9 +39,5 @@
 }
 
 <div>
-    @Html.ActionLink("К списку типов доставки", "Index")
+    @Html.ActionLink("К списку товаров", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
