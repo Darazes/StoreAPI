@@ -25,7 +25,7 @@ namespace StoreAPI.Controllers
             return View(products.ToList());
         }
 
-
+        //Открыт для незарегестрированных пользователей
         public string IndexJson()
         {
             List<Product> products = db.Products.ToList();
@@ -63,8 +63,6 @@ namespace StoreAPI.Controllers
             {
                 if (upload != null)
                 {
-                    // Получение имени файла
-                    //string fileName = System.IO.Path.GetFileName(upload.FileName);
 
                     // Сохранение файла с новым именем эквивалентным названию товара
                     upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
@@ -73,7 +71,6 @@ namespace StoreAPI.Controllers
                     string namefile = product.name_product.Replace(" ", "%20");
 
                     // Добавление пути изображения товару в базе
-
                     product.image_url = ("/Files/" + namefile + ".png");
 
                     //Добавление товара в базу
@@ -133,9 +130,6 @@ namespace StoreAPI.Controllers
 
             if (upload != null)
             {
-                // Получение имени файла
-                string fileName = System.IO.Path.GetFileName(upload.FileName);
-
 
                 //Получение пути изображения
                 string fullPath = Server.MapPath("~/Files/" + product.name_product + ".png");
@@ -143,11 +137,18 @@ namespace StoreAPI.Controllers
                 //Проверка есть ли заданный путь
                 if (System.IO.File.Exists(fullPath))
                 {
+
                     //Удаление предыдущего изображения
                     System.IO.File.Delete(fullPath);
 
                     //Сохранение нового изображения
                     upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+
+                    //Изменение имени файла для пути с заменёнными пробелами
+                    string namefile = product.name_product.Replace(" ", "%20");
+
+                    // Добавление пути изображения товару в базе
+                    product.image_url = ("/Files/" + namefile + ".png");
 
                 }
 

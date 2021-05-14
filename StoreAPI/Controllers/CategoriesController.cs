@@ -21,6 +21,7 @@ namespace StoreAPI.Controllers
             return View(await db.Categories.ToListAsync());
         }
 
+        [Authorize(Roles = "admin")]
         public string IndexJson()
         {
             List<Category> categories = db.Categories.ToList();
@@ -51,9 +52,6 @@ namespace StoreAPI.Controllers
             return View();
         }
 
-        // POST: Categories/Create
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,9 +82,6 @@ namespace StoreAPI.Controllers
             return View(category);
         }
 
-        // POST: Categories/Edit/5
-        // Чтобы защититься от атак чрезмерной передачи данных, включите определенные свойства, для которых следует установить привязку. Дополнительные 
-        // сведения см. в разделе https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]

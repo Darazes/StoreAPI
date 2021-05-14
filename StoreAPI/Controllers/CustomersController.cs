@@ -16,6 +16,7 @@ namespace StoreAPI.Controllers
         private StoreContext db = new StoreContext();
 
         [HttpGet]
+        [Authorize(Roles = "admin")]
         public string IndexJson()
         {
 
@@ -57,6 +58,32 @@ namespace StoreAPI.Controllers
                 return View();
             }
             
+        }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        public string LoginJson(Account model)
+        { 
+            if (model.login == "" || model.password == "")
+            {
+                return "Заполните все поля";
+            }
+            // поиск пользователя в бд
+            Customer customer = null;
+
+            customer = db.Customers.FirstOrDefault(u => u.login == model.login && u.password == model.password);
+
+
+            if (customer != null)
+            {
+                FormsAuthentication.SetAuthCookie(model.login, true);
+                return "Успешный вход";
+            }
+            else
+            {
+                return "Такого пользователя не существует";
+            }
+
         }
 
         public ActionResult Register()

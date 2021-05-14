@@ -26,11 +26,15 @@ namespace StoreAPI.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
         public string CreateJson(RequestCustom model)
         {
 
             if (db.Customers.Where(u => u.id_customer == model.id_customer).FirstOrDefault() != null) 
             {
+
+                if (db.Types.SingleOrDefault(i => i.id_type_delivery == model.id_type_delivery) == null) return "Выбранного типа доставки не существует";
+
                 Request request = new Request();
 
                 List<Request> requests_list = db.Requests.ToList();
@@ -72,6 +76,7 @@ namespace StoreAPI.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
         public string AddProductJson(Product_request_custom model)
         {
 
@@ -322,6 +327,7 @@ namespace StoreAPI.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
         public async Task<string> CancelJson(RequestCancel model)
         {
             var request_db = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == model.id_request);
@@ -372,6 +378,19 @@ namespace StoreAPI.Controllers
                 }
             }
             return 0;
+        }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
+        public async Task<int> ProductCount(Product_count model)
+        {
+            var product = await db.Product_storage.SingleOrDefaultAsync(i => i.id_product == model.id_product);
+
+            if (product == null) return 0;
+
+            else return product.count;
+
         }
 
         [Authorize(Roles = "admin")]

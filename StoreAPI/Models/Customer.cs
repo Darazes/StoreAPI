@@ -48,4 +48,11 @@ namespace StoreAPI.Models
         public string adress_customer { get; set; }
 
     }
+
+    public class Account
+    {
+        public string login { get; set; }
+        public string password { get; set; }
+
+    }
 }
