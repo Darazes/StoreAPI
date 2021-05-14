@@ -81,7 +81,7 @@ th {
 }
 
 .processing {
-    color:orangered;
+    color:lightslategray;
 }
 
 .delivery {
@@ -90,6 +90,14 @@ th {
 
 .final {
     color: forestgreen;
+}
+
+.ship {
+    color:cornflowerblue;
+}
+
+.cancel {
+    color:red;
 }
 
 

@@ -21,17 +21,38 @@
         {
             <p><span class="processing text_bold">В обработке</span></p>;
         }
-        else if (Model.status == 2)
+        @if (Model.status == 2)
+        {
+            <p><span class="ship text_bold">Ожидает доставки</span></p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
+        }
+        @if (Model.status == 3)
         {
             <p><span class="delivery text_bold">Доставляется</span></p>
             <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
         }
-        else
+        @if (Model.status == 4)
         {
             <p><span class="final text_bold">Завершён</span></p>
             <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
             <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_delivery)</span> : @Html.DisplayFor(model => model.date_delivery)</p>
         }
+        @if (Model.status == 5)
+        {
+            <p><span class="cancel text_bold">Отменён</span></p>
+        }
+
+        <span class="text_bold">@Html.DisplayNameFor(model => model.cost_request)</span> :
+
+        @if (Model.cost_request != 0)
+        {
+            @Html.DisplayFor(modelItem => Model.cost_request)
+        }
+        else if (Model.status == 1 || Model.cost_request == 0)
+        {
+            <p>Заказ не был подтверждён</p>
+        }
+
     </div>
 
 </div>

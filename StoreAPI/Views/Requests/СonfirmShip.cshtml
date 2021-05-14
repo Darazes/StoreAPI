@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Подтверждение доставки заказа # @Html.DisplayFor(model => model.id_request)</h2>
+<h2>Подтверждение отправки заказа # @Html.DisplayFor(model => model.id_request)</h2>
 
 <div>
 
@@ -48,10 +48,10 @@
 
 </table>
 
-@using (Html.BeginForm("СonfirmDeliveryPost" + "/" + Model.id_request, "Requests"))
+@using (Html.BeginForm("СonfirmShipPost" + "/" + Model.id_request, "Requests"))
 {
     @Html.TextBox(Model.id_request.ToString(), FormMethod.Post, htmlAttributes: new { @class = "null" })
-    <input type="submit" value="Подтвердить доставку" class="btn btn-default" />
+    <input type="submit" value="Подтвердить отправку" class="btn btn-default" />
 }
 
 <p>

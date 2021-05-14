@@ -14,6 +14,7 @@ namespace StoreAPI.Controllers
     {
         private StoreContext db = new StoreContext();
 
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()
         {
             ViewBag.account = User.Identity.Name; 
@@ -103,6 +104,7 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -118,6 +120,7 @@ namespace StoreAPI.Controllers
             return View(request);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult> СonfirmDetails(int? id)
         {
@@ -135,9 +138,20 @@ namespace StoreAPI.Controllers
 
             if (request.product_requests.Count() == 0) ViewBag.error = "В заказе нет товаров";
 
+            foreach (var item in request.product_requests)
+            {
+                var product = await db.Product_storage.Where(i => i.id_product == item.id_product).Include(p=>p.product).SingleOrDefaultAsync();
+
+                if (product.count < item.count)
+                {
+                    ViewBag.error = @" Товар "" " + product.product.name_product + @" "" не в наличии.";
+                }
+            }
+
             return View(request);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> Сonfirm(int? id)
         {
@@ -146,9 +160,29 @@ namespace StoreAPI.Controllers
 
             var request_db = await db.Requests.FindAsync(id);
 
-            //Подтверждение заказа
             if (request.product_requests.Count() != 0)
             {
+
+                foreach (var item in request.product_requests)
+                {
+                    var product = await db.Product_storage.Where(i => i.id_product == item.id_product).SingleOrDefaultAsync();
+
+                    if (product.count < item.count)
+                    {
+                        return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");
+                    } 
+                }
+
+                foreach (var item in request.product_requests)
+                {
+                    var product =  await db.Product_storage.Where(i => i.id_product == item.id_product).SingleOrDefaultAsync();
+
+                    product.count -= item.count;
+
+                    db.Entry(product).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }    
+
                 request_db.date_confirm = DateTime.Now;
 
                 request_db.status = 2;
@@ -167,7 +201,41 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<ActionResult> СonfirmShip(int? id)
+        {
 
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Request request = await db.Requests.Include(r => r.product_requests).Include(r => r.customer).SingleOrDefaultAsync(r => r.id_request == id);
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<ActionResult> СonfirmShipPost(int? id)
+        {
+
+            var request = await db.Requests.FindAsync(id);
+
+            request.status = 3;
+
+            db.Entry(request).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+
+            return RedirectToAction("Details" + "/" + id, "Requests");
+
+        }
+
+        [Authorize(Roles = "admin")]
         [HttpGet]
         public async Task<ActionResult> СonfirmDelivery(int? id)
         {
@@ -186,38 +254,109 @@ namespace StoreAPI.Controllers
             return View(request);
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public async Task<ActionResult> СonfirmDeliveryPost(int? id)
         {
 
-            var request = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
+            var request = await db.Requests.FindAsync(id);
 
-            var request_db = await db.Requests.FindAsync(id);
+            request.date_delivery = DateTime.Now;
 
-            //Подтверждение заказа
-            if (request.product_requests.Count() != 0)
-            {
-                request_db.date_delivery = DateTime.Now;
+            request.status = 4;
 
-                request_db.status = 3;
+            db.Entry(request).State = EntityState.Modified;
+            await db.SaveChangesAsync();
 
-                db.Entry(request_db).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-
-                return RedirectToAction("Details" + "/" + id, "Requests");
-            }
-            else
-            {
-                return RedirectToAction("СonfirmDelivery" + "/" + id, "Requests");
-            }
+            return RedirectToAction("Details" + "/" + id, "Requests");
 
         }
 
+        [Authorize(Roles = "admin")]
+        [HttpGet]
+        public async Task<ActionResult> CancelDetails(int? id)
+        {
+
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Request request = await db.Requests.Include(r => r.product_requests).Include(r => r.customer).SingleOrDefaultAsync(r => r.id_request == id);
+            if (request == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(request);
+        }
+
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        public async Task<ActionResult> СonfirmCancel(int? id)
+        {
+            var request_db = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
+
+            var request = await db.Requests.FindAsync(id);
+
+            if (request.status == 2)
+            {
+                foreach (var item in request_db.product_requests)
+                {
+                    var product = await db.Product_storage.Where(i => i.id_product == item.id_product).SingleOrDefaultAsync();
+
+                    product.count += item.count;
+
+                    db.Entry(product).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+            }
+                request.status = 5;
+
+                db.Entry(request).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+            
+
+            return RedirectToAction("Details" + "/" + id, "Requests");
+
+        }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        public async Task<string> CancelJson(int? id)
+        {
+            var request_db = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
+
+            var request = await db.Requests.FindAsync(id);
+
+            if (request.status == 3 || request.status == 4 || request.status == 5) return "Отмена невозможна";
+
+            if (request.status == 2)
+            {
+                foreach (var item in request_db.product_requests)
+                {
+                    var product = await db.Product_storage.Where(i => i.id_product == item.id_product).SingleOrDefaultAsync();
+
+                    product.count += item.count;
+
+                    db.Entry(product).State = EntityState.Modified;
+                    await db.SaveChangesAsync();
+                }
+            }
+
+                request.status = 5;
+
+                db.Entry(request).State = EntityState.Modified;
+                await db.SaveChangesAsync();
+                return "Заказ отменён";
+
+        }
+
+        [Authorize(Roles = "admin")]
         public async Task<float> CostRequest(int? id)
         {
             var request = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
 
-            var type = await db.Types.SingleOrDefaultAsync(i =>i.id_type_delivery == request.id_type_delivery);
+            var type = await db.Types.SingleOrDefaultAsync(i => i.id_type_delivery == request.id_type_delivery);
 
             float cost = 0;
 
@@ -234,86 +373,6 @@ namespace StoreAPI.Controllers
             }
             return 0;
         }
-
-        // GET: Requests/Create
-        //public ActionResult Create()
-        //{
-        //    ViewBag.id_customer = new SelectList(db.Customers, "id_customer", "login");
-        //    ViewBag.id_delivery = new SelectList(db.Deliveries, "id_delivery", "id_delivery");
-        //    return View();
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Create([Bind(Include = "id_request,date_request,id_customer,id_delivery,confirm")] Request request)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Requests.Add(request);
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-
-        //    ViewBag.id_customer = new SelectList(db.Customers, "id_customer", "login", request.id_customer);
-        //    ViewBag.id_delivery = new SelectList(db.Deliveries, "id_delivery", "id_delivery", request.id_delivery);
-        //    return View(request);
-        //}
-
-        //public async Task<ActionResult> Edit(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Request request = await db.Requests.FindAsync(id);
-        //    if (request == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    ViewBag.id_customer = new SelectList(db.Customers, "id_customer", "login", request.id_customer);
-        //    ViewBag.id_delivery = new SelectList(db.Deliveries, "id_delivery", "id_delivery", request.id_delivery);
-        //    return View(request);
-        //}
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> Edit([Bind(Include = "id_request,date_request,id_customer,id_delivery,confirm")] Request request)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        db.Entry(request).State = EntityState.Modified;
-        //        await db.SaveChangesAsync();
-        //        return RedirectToAction("Index");
-        //    }
-        //    ViewBag.id_customer = new SelectList(db.Customers, "id_customer", "login", request.id_customer);
-        //    ViewBag.id_delivery = new SelectList(db.Deliveries, "id_delivery", "id_delivery", request.id_delivery);
-        //    return View(request);
-        //}
-
-        //public async Task<ActionResult> Delete(int? id)
-        //{
-        //    if (id == null)
-        //    {
-        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-        //    }
-        //    Request request = await db.Requests.FindAsync(id);
-        //    if (request == null)
-        //    {
-        //        return HttpNotFound();
-        //    }
-        //    return View(request);
-        //}
-
-
-        //[HttpPost, ActionName("Delete")]
-        //[ValidateAntiForgeryToken]
-        //public async Task<ActionResult> DeleteConfirmed(int id)
-        //{
-        //    Request request = await db.Requests.FindAsync(id);
-        //    db.Requests.Remove(request);
-        //    await db.SaveChangesAsync();
-        //    return RedirectToAction("Index");
-        //}
 
         [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)

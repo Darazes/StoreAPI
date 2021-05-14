@@ -3,6 +3,11 @@
 
 <h2>Наличие товара на складе</h2>
 
+<ul>
+    <li>@Html.ActionLink("Добавить поставку", "Create", "Procurements")</li>
+    <li>@Html.ActionLink("Поставки", "Index", "Procurements")</li>
+</ul>
+
 <table class="table">
     <tr>
         <th></th>
@@ -18,7 +23,7 @@
     {
         <tr>
             <td>
-                <img src=@Url.Content("~/Files/" + item.product.name_product + ".png") class="small_img" />
+                <img src=@Url.Content(item.product.image_url) class="small_img" />
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.product.name_product)

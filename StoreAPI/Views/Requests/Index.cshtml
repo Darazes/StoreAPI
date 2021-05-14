@@ -22,6 +22,7 @@
         </th>
         <th></th>
         <th></th>
+        <th></th>
     </tr>
 
 @foreach (var item in Model) {
@@ -37,41 +38,69 @@
         {
             <p><span class="processing text_bold">В обработке</span></p>;
         }
-        else if (item.status == 2)
+        @if (item.status == 2)
+        {
+            <p><span class="ship text_bold">Ожидает доставки</span></p>
+        }
+        @if (item.status == 3)
         {
             <p><span class="delivery text_bold">Доставляется</span></p>
         }
-        else 
+        @if (item.status == 4)
         {
             <p><span class="final text_bold">Завершён</span></p>
         }
+        @if (item.status == 5)
+        {
+            <p><span class="cancel text_bold">Отменён</span></p>
+        }
     </td>
     <td>
-        @if (item.cost_request != 0)
+        @if (item.cost_request != 0 && item.status != 5)
         {
             @Html.DisplayFor(modelItem => item.cost_request)
         }
-        else 
+        else if (item.status == 1)
         {
             <p>Подтвердите заказ</p>
         }
+        else { }
     </td>
     <td></td>
+    <td>
+        @if (item.status == 1 || item.status == 2 || item.status == 3)
+        {
+            @Html.ActionLink("| О заказе |", "Details", new { id = item.id_request })
+        }
+
+        @if (item.status == 4 || item.status == 5)
+        {
+            @Html.ActionLink("О заказе", "Details", new { id = item.id_request })
+        }
+
+
+
+    </td>
     <td>
 
         @if (item.status == 1)
         {
-            @Html.ActionLink("О заказе |", "Details", new { id = item.id_request })
             @Html.ActionLink("Подтвердить заказ", "СonfirmDetails", new { id = item.id_request })
         }
         @if (item.status == 2)
         {
-            @Html.ActionLink("О заказе |", "Details", new { id = item.id_request })
-            @Html.ActionLink("Подтвердить доставку", "СonfirmDelivery", new { id = item.id_request })
+            @Html.ActionLink("Подтвердить отправку", "СonfirmShip", new { id = item.id_request })
         }
         @if (item.status == 3)
         {
-            @Html.ActionLink("О заказе", "Details", new { id = item.id_request })
+            @Html.ActionLink("Подтвердить доставку", "СonfirmDelivery", new { id = item.id_request })
+        }
+
+    </td>
+    <td>
+        @if (item.status == 1 || item.status == 2)
+        {
+            @Html.ActionLink("| Отменить заказ |", "CancelDetails", new { id = item.id_request })
         }
     </td>
 </tr>

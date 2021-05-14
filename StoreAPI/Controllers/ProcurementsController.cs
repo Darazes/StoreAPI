@@ -51,6 +51,8 @@ namespace StoreAPI.Controllers
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
         {
 
+            ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
+
             if (ModelState.IsValid)
             {
                 db.Procurements.Add(procurement);

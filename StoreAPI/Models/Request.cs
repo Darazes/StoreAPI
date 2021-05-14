@@ -57,4 +57,9 @@ namespace StoreAPI.Models
 
         public int id_type_delivery { get; set; }
     }
+
+    public class RequestCancel 
+    {
+        public int id_request { get; set; }
+    }
 }

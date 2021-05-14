@@ -1,23 +1,17 @@
 ﻿@model StoreAPI.Models.Request
 
-@{
-    ViewBag.Title = "Details";
-}
-
-<h2>Подтверждение доставки заказа # @Html.DisplayFor(model => model.id_request)</h2>
+<h2>Заказ # @Html.DisplayFor(model => model.id_request)</h2>
 
 <div>
 
     <p><span class="text_bold">@Html.DisplayNameFor(model => model.customer.login)</span> : @Html.DisplayFor(model => model.customer.login)</p>
 
-    <p><span class="text_bold">@Html.DisplayNameFor(model => model.type.name_type_delivery)</span> : @Html.DisplayFor(model => model.type.name_type_delivery)</p>
-
     <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_request)</span> : @Html.DisplayFor(model => model.date_request)</p>
 
-    <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
-
-    <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_delivery)</span> : @ViewBag.date</p>
-
+    @if (Model.status == 2)
+    {
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
+    }
 
 </div>
 
@@ -38,6 +32,8 @@
     {
         <tr>
             <td>
+
+
                 @Html.DisplayFor(modelItem => item.id_product)
             </td>
             <td>
@@ -48,11 +44,13 @@
 
 </table>
 
-@using (Html.BeginForm("СonfirmDeliveryPost" + "/" + Model.id_request, "Requests"))
+@using (Html.BeginForm("СonfirmCancel" + "/" + Model.id_request, "Requests"))
 {
     @Html.TextBox(Model.id_request.ToString(), FormMethod.Post, htmlAttributes: new { @class = "null" })
-    <input type="submit" value="Подтвердить доставку" class="btn btn-default" />
+    <input type="submit" value="Отменить заказ" class="btn btn-default" />
 }
+
+<p><span class="text_bold error">@ViewBag.error</span></p>
 
 <p>
     @Html.ActionLink("К списку заказов", "Index")

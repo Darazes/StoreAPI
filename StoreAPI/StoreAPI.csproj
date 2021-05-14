@@ -411,6 +411,8 @@
     <Content Include="Views\Types\Create.cshtml" />
     <Content Include="Views\Types\Delete.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
+    <Content Include="Views\Requests\CancelDetails.cshtml" />
+    <Content Include="Views\Requests\СonfirmShip.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
