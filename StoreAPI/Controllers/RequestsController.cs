@@ -322,11 +322,11 @@ namespace StoreAPI.Controllers
 
         [HttpPost]
         [Route("api/[controller]")]
-        public async Task<string> CancelJson(int? id)
+        public async Task<string> CancelJson(RequestCancel model)
         {
-            var request_db = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
+            var request_db = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == model.id_request);
 
-            var request = await db.Requests.FindAsync(id);
+            var request = await db.Requests.FindAsync(model.id_request);
 
             if (request.status == 3 || request.status == 4 || request.status == 5) return "Отмена невозможна";
 
