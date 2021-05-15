@@ -21,7 +21,7 @@ namespace StoreAPI.Controllers
             return View(await db.Categories.ToListAsync());
         }
 
-        [Authorize(Roles = "admin")]
+        [Authorize(Roles = "admin,user")]
         public string IndexJson()
         {
             List<Category> categories = db.Categories.ToList();

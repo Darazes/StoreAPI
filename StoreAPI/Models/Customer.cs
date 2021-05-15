@@ -12,19 +12,19 @@ namespace StoreAPI.Models
         public int id_customer { get; set; }
 
         [Display(Name = "Логин")]
-        [Required, MaxLength(30)]
+        [Required]
         public string login { get; set; }
 
         [Display(Name = "Пароль")]
-        [Required, MaxLength(30)]
+        [Required]
         public string password { get; set; }
 
         [Display(Name = "Телефон")]
-        [Required, MaxLength(20)]
+        [Required]
         public string phone { get; set; }
 
         [Display(Name = "Адрес")]
-        [Required, MaxLength(100)]
+        [Required]
         public string adress_customer { get; set; }
 
         public int roleid { get; set; }

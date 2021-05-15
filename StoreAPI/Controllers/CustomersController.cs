@@ -8,6 +8,8 @@ using StoreAPI.Models;
 using System.Web.Security;
 using Newtonsoft.Json;
 using System.Collections.Generic;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace StoreAPI.Controllers
 {
@@ -41,10 +43,11 @@ namespace StoreAPI.Controllers
                 ViewBag.error = "Заполните все поля";
                 return View();
             }
-            // поиск пользователя в бд
-            Customer customer = null;
 
-            customer = db.Customers.FirstOrDefault(u => u.login == login && u.password == password);
+            login = Encode(login);
+            password = Encode(password);
+
+            Customer customer =  db.Customers.FirstOrDefault(u => u.login == login && u.password == password);
 
             
             if (customer != null)
@@ -68,16 +71,22 @@ namespace StoreAPI.Controllers
             {
                 return "Заполните все поля";
             }
-            // поиск пользователя в бд
-            Customer customer = null;
 
-            customer = db.Customers.FirstOrDefault(u => u.login == model.login && u.password == model.password);
+            model.login = Encode(model.login);
+            model.password = Encode(model.password);
+
+            Customer customer =  db.Customers.FirstOrDefault(u => u.login == model.login);
 
 
             if (customer != null)
             {
-                FormsAuthentication.SetAuthCookie(model.login, true);
-                return "Успешный вход";
+                Customer customerl = db.Customers.FirstOrDefault(u => u.login == model.login && u.password == model.password);
+                if (customerl != null)
+                {
+                    FormsAuthentication.SetAuthCookie(model.login, true);
+                    return "Успешный вход";
+                }
+                else return "Неверный пароль";
             }
             else
             {
@@ -86,47 +95,47 @@ namespace StoreAPI.Controllers
 
         }
 
-        public ActionResult Register()
-        {
-            return View();
-        }
+        //public ActionResult Register()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
-        {
-            if (ModelState.IsValid)
-            {
-                Customer customer = null;
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        Customer customer = null;
 
-                customer = db.Customers.FirstOrDefault(u => u.login == model.login);
+        //        customer = db.Customers.FirstOrDefault(u => u.login == model.login);
 
-                if (customer == null)
-                {
+        //        if (customer == null)
+        //        {
                    
-                    model.roleid = 2;
+        //            model.roleid = 2;
 
-                    db.Customers.Add(model);
-                    db.SaveChanges();
+        //            db.Customers.Add(model);
+        //            db.SaveChanges();
 
-                    customer = db.Customers.Where(u => u.login == model.login && u.password == model.password).FirstOrDefault();
+        //            customer = db.Customers.Where(u => u.login == model.login && u.password == model.password).FirstOrDefault();
                     
-                    // если пользователь удачно добавлен в бд
-                    if (customer != null)
-                    {
-                        FormsAuthentication.SetAuthCookie(model.login, true);
-                        return RedirectToAction("Index", "Home");
-                    }
-                }
-                else
-                {
-                    ViewBag.error = "Такого пользователя не существует";
-                    return View();
-                }
-            }
+        //            // если пользователь удачно добавлен в бд
+        //            if (customer != null)
+        //            {
+        //                FormsAuthentication.SetAuthCookie(model.login, true);
+        //                return RedirectToAction("Index", "Home");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            ViewBag.error = "Такого пользователя не существует";
+        //            return View();
+        //        }
+        //    }
 
-            return View(model);
-        }
+        //    return View(model);
+        //}
 
         [HttpPost]
         [Route("api/[controller]")]
@@ -135,10 +144,10 @@ namespace StoreAPI.Controllers
             Customer customer = new Customer
             {
                 id_customer = db.Customers.ToList().LastOrDefault().id_customer + 1,
-                login = model.login,
-                password = model.password,
-                phone = model.phone,
-                adress_customer = model.adress_customer,
+                login = Encode(model.login),
+                password = Encode(model.password),
+                phone = Encode(model.phone),
+                adress_customer = Encode(model.adress_customer),
                 roleid = 2,
                 role = null,
                 requests = new List<Request>()
@@ -254,6 +263,22 @@ namespace StoreAPI.Controllers
             await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
+
+        public string Encode(string input)
+        {
+
+            byte[] hash = Encoding.ASCII.GetBytes(input);
+            MD5 md5 = new MD5CryptoServiceProvider();
+            byte[] hashenc = md5.ComputeHash(hash);
+            string result = "";
+            foreach (var b in hashenc)
+            {
+                result += b.ToString("x2");
+            }
+            return result;
+
+        }
+
 
         [Authorize(Roles = "admin")]
         protected override void Dispose(bool disposing)

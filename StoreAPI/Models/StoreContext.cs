@@ -41,8 +41,8 @@ namespace StoreAPI.Models
             db.Customers.Add(new Customer
             {
                 id_customer = 1,
-                login = "admin",
-                password = "aDminChik",
+                login = "6a4342757bfaa045fc2397c3173bce26",
+                password = "31c426a17b67ece1b1e78280479fe47c",
                 phone = "-",
                 adress_customer = "-",
                 roleid = 1
