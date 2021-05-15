@@ -12,7 +12,7 @@ namespace StoreAPI.Models
         public int id_customer { get; set; }
 
         [Display(Name = "Логин")]
-        [Required]
+        [Required, MaxLength(20)]
         public string login { get; set; }
 
         [Display(Name = "Пароль")]
@@ -20,11 +20,11 @@ namespace StoreAPI.Models
         public string password { get; set; }
 
         [Display(Name = "Телефон")]
-        [Required]
+        [Required, MaxLength(11)]
         public string phone { get; set; }
 
         [Display(Name = "Адрес")]
-        [Required]
+        [Required, MaxLength(100)]
         public string adress_customer { get; set; }
 
         public int roleid { get; set; }

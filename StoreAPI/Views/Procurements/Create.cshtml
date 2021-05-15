@@ -12,7 +12,7 @@
             @Html.LabelFor(model => model.date_procurement, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.date_procurement, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.date_procurement, "", new { @class = "text-danger" })
+                <p class="error">@Html.ValidationMessageFor(model => model.date_procurement, "", new { @class = "text-danger" })</p>
             </div>
         </div>
 
@@ -20,7 +20,7 @@
             @Html.LabelFor(model => model.count_procurement, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.count_procurement, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.count_procurement, "", new { @class = "text-danger" })
+                <p class="error">@Html.ValidationMessageFor(model => model.count_procurement, "", new { @class = "text-danger" })</p>
             </div>
         </div>
 
@@ -28,7 +28,7 @@
             @Html.LabelFor(model => model.id_product, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("id_product", ViewBag.id_product as SelectList, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.id_product, "", new { @class = "text-danger" })
+                <p class="error">@ViewBag.no_product</p>
             </div>
         </div>
 

@@ -51,6 +51,7 @@ namespace StoreAPI.Controllers
         [HttpGet]
         public ActionResult Create()
         {
+            ViewBag.no_category = "";
             ViewBag.id_category = new SelectList(db.Categories, "id_category", "name_category");
             return View();
         }
@@ -58,8 +59,16 @@ namespace StoreAPI.Controllers
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase upload)
         {
+            bool image_status = System.IO.File.Exists(Server.MapPath("~/Files/" + product.name_product + ".png"));
 
-            if (ModelState.IsValid)
+
+            ViewBag.id_category = new SelectList(db.Categories, "id_category", "name_category");
+
+            if (db.Categories.ToList().Count == 0) ViewBag.no_category = "Требуется поле название категории";
+
+            if (image_status == false) ViewBag.no_image = "Требуется изображение товара";
+
+            if (ModelState.IsValid && (db.Categories.ToList().Count != 0) && upload != null)
             {
                 if (upload != null)
                 {
@@ -77,9 +86,9 @@ namespace StoreAPI.Controllers
                     db.Products.Add(product);
                     db.SaveChanges();
                 }
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            return View(product);
 
         }
 

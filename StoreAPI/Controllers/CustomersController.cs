@@ -44,7 +44,6 @@ namespace StoreAPI.Controllers
                 return View();
             }
 
-            login = Encode(login);
             password = Encode(password);
 
             Customer customer =  db.Customers.FirstOrDefault(u => u.login == login && u.password == password);
@@ -67,12 +66,11 @@ namespace StoreAPI.Controllers
         [Route("api/[controller]")]
         public string LoginJson(Account model)
         { 
-            if (model.login == "" || model.password == "")
+            if (model.login == null || model.password == null)
             {
                 return "Заполните все поля";
             }
 
-            model.login = Encode(model.login);
             model.password = Encode(model.password);
 
             Customer customer =  db.Customers.FirstOrDefault(u => u.login == model.login);
@@ -95,59 +93,67 @@ namespace StoreAPI.Controllers
 
         }
 
-        //public ActionResult Register()
-        //{
-        //    return View();
-        //}
+        [Authorize(Roles = "admin")]
+        public ActionResult Register()
+        {
+            return View();
+        }
 
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        Customer customer = null;
+        [Authorize(Roles = "admin")]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
+        {
+            if (ModelState.IsValid)
+            {
+                Customer customer = null;
 
-        //        customer = db.Customers.FirstOrDefault(u => u.login == model.login);
+                customer = db.Customers.FirstOrDefault(u => u.login == model.login);
 
-        //        if (customer == null)
-        //        {
-                   
-        //            model.roleid = 2;
+                if (customer == null)
+                {
 
-        //            db.Customers.Add(model);
-        //            db.SaveChanges();
+                    model.roleid = 1;
 
-        //            customer = db.Customers.Where(u => u.login == model.login && u.password == model.password).FirstOrDefault();
-                    
-        //            // если пользователь удачно добавлен в бд
-        //            if (customer != null)
-        //            {
-        //                FormsAuthentication.SetAuthCookie(model.login, true);
-        //                return RedirectToAction("Index", "Home");
-        //            }
-        //        }
-        //        else
-        //        {
-        //            ViewBag.error = "Такого пользователя не существует";
-        //            return View();
-        //        }
-        //    }
+                    db.Customers.Add(model);
+                    db.SaveChanges();
 
-        //    return View(model);
-        //}
+                    customer = db.Customers.Where(u => u.login == model.login && u.password == model.password).FirstOrDefault();
+
+                    // если пользователь удачно добавлен в бд
+                    if (customer != null)
+                    {
+                        FormsAuthentication.SetAuthCookie(model.login, true);
+                        return RedirectToAction("Index", "Home");
+                    }
+                }
+                else
+                {
+                    ViewBag.error = "Такого пользователя не существует";
+                    return View();
+                }
+            }
+
+            return View(model);
+        }
 
         [HttpPost]
         [Route("api/[controller]")]
         public string RegisterJson(CustomerCustom model)
         {
+            if (model.login == null) return "Введите логин";
+            if (model.password == null) return "Введите пароль";
+            if (model.phone == null) return "Введите номер телефона";
+            if (model.phone.Length < 11) return "Введите номер телефона соответвующий модели (X-XXX-XXX-XX-XX)";
+            if (model.adress_customer == null) return "Введите адрес";
+
             Customer customer = new Customer
             {
                 id_customer = db.Customers.ToList().LastOrDefault().id_customer + 1,
-                login = Encode(model.login),
+                login = model.login,
                 password = Encode(model.password),
-                phone = Encode(model.phone),
-                adress_customer = Encode(model.adress_customer),
+                phone = model.phone,
+                adress_customer = model.adress_customer,
                 roleid = 2,
                 role = null,
                 requests = new List<Request>()

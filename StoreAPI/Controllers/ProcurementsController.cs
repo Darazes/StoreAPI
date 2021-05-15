@@ -50,10 +50,14 @@ namespace StoreAPI.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "id_procurement,date_procurement,cost_procurement,count_procurement,id_storage,id_product")] Procurement procurement)
         {
+            var product = await db.Products.ToListAsync();
+
+            if (product.Count == 0) ViewBag.no_product = "Требуется выбор названия товара";
 
             ViewBag.id_product = new SelectList(db.Products, "id_product", "name_product");
+            
 
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && product.Count != 0)
             {
                 db.Procurements.Add(procurement);
 
