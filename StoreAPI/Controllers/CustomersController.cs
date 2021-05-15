@@ -102,13 +102,19 @@ namespace StoreAPI.Controllers
         [Authorize(Roles = "admin")]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Register([Bind(Include = "id_customer,login,password,phone,adress_customer")] Customer model)
+        public ActionResult Register([Bind(Include = "id_customer,login,password")] CustomerCustom modelmodified)
         {
-            if (ModelState.IsValid)
-            {
-                Customer customer = null;
 
-                customer = db.Customers.FirstOrDefault(u => u.login == model.login);
+            Customer model = new Customer();
+
+            model.login = modelmodified.login;
+            model.password = modelmodified.password;
+            model.phone = "-";
+            model.adress_customer = "-";
+
+            if (model.login != null && model.password != null)
+            {
+                Customer customer = db.Customers.FirstOrDefault(u => u.login == model.login);
 
                 if (customer == null)
                 {
@@ -129,7 +135,8 @@ namespace StoreAPI.Controllers
                 }
                 else
                 {
-                    ViewBag.error = "Такого пользователя не существует";
+                    if (model.login != null ) ViewBag.login = "Требуется поле логин";
+                    if (model.password != null) ViewBag.password = "Требуется поле пароль";
                     return View();
                 }
             }
@@ -196,7 +203,7 @@ namespace StoreAPI.Controllers
         {
             ViewBag.account = User.Identity.Name;
 
-            return View(await db.Customers.ToListAsync());
+            return View(await db.Customers.Include(r=>r.role).ToListAsync());
         }
 
         [Authorize(Roles = "admin")]

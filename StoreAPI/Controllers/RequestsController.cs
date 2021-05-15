@@ -79,6 +79,8 @@ namespace StoreAPI.Controllers
         [Authorize(Roles = "admin,user")]
         public string AddProductJson(Product_request_custom model)
         {
+            if (db.Requests.SingleOrDefault(i => i.id_request == model.id_request) == null) return "Выбранного заказа не существует";
+            if (db.Products.SingleOrDefault(i => i.id_product == model.id_product) == null) return "Выбранного товара не существует";
 
             var product_Request_list = db.Product_requests.ToList();
 
@@ -147,9 +149,10 @@ namespace StoreAPI.Controllers
             {
                 var product = await db.Product_storage.Where(i => i.id_product == item.id_product).Include(p=>p.product).SingleOrDefaultAsync();
 
-                if (product.count < item.count)
+                if(product == null) ViewBag.error = "На складе не найдены товары";
+                else if (product.count < item.count)
                 {
-                    ViewBag.error = @" Товар "" " + product.product.name_product + @" "" не в наличии.";
+                    ViewBag.error = @" Товар "" " + product.product.name_product + @" "" не в наличии. " + "Не хватает: " + (item.count-product.count).ToString();
                 }
             }
 
@@ -172,6 +175,12 @@ namespace StoreAPI.Controllers
                 {
                     var product = await db.Product_storage.Where(i => i.id_product == item.id_product).SingleOrDefaultAsync();
 
+
+                    if (product == null)
+                    {
+                        return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");
+
+                    } 
                     if (product.count < item.count)
                     {
                         return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");

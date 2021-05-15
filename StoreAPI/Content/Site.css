@@ -21,7 +21,7 @@ header {
 
 header a {
     font-family: 'Century Gothic';
-    padding: 15px 0px 0px 20px;
+    padding: 15px 0px 0px 10px;
     display: inline-block;
     color: white !important;
 }
@@ -181,7 +181,7 @@ ul {
 
     display: inline;
     font-size: 24px;
-    padding: 10px 10px 20px 20px;
+    padding: 10px 10px 20px 0px;
     list-style-type: none;
     font-family: 'Century Gothic';
 }
@@ -199,9 +199,19 @@ li a:hover {
     position: absolute;
 }
 
+.home a{
+    padding: 10px;
+}
+
 .account {
     position: absolute;
     right: 10px;
 }
 
+.account a {
+    padding: 10px;
+}
 
+.form-group label {
+    display: inline-block;
+}

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace StoreAPI.Models
 {
@@ -9,6 +6,7 @@ namespace StoreAPI.Models
     {
         public int id { get; set; }
 
+        [Display(Name = "Роль")]
         public string name { get; set; }
     }
 }
