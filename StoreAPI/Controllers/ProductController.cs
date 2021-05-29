@@ -56,11 +56,11 @@ namespace StoreAPI.Controllers
             return View();
         }
 
+        [Authorize(Roles = "admin")]
         [HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase upload)
         {
-            bool image_status = System.IO.File.Exists(Server.MapPath("~/Files/" + product.name_product + ".png"));
-
+            bool image_status = System.IO.File.Exists(Server.MapPath("~/Content/Images/" + product.name_product + ".png"));
 
             ViewBag.id_category = new SelectList(db.Categories, "id_category", "name_category");
 
@@ -73,14 +73,19 @@ namespace StoreAPI.Controllers
                 if (upload != null)
                 {
 
+                    if (!System.IO.File.Exists(Server.MapPath("~/Content/Images")))
+                    {
+                        System.IO.Directory.CreateDirectory(Server.MapPath("~/Content/Images"));
+                    }
+
                     // Сохранение файла с новым именем эквивалентным названию товара
-                    upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+                    upload.SaveAs(Server.MapPath("~/Content/Images/" + product.name_product + ".png"));
 
                     //Изменение имени файла для пути с заменёнными пробелами
                     string namefile = product.name_product.Replace(" ", "%20");
 
                     // Добавление пути изображения товару в базе
-                    product.image_url = ("/Files/" + namefile + ".png");
+                    product.image_url = ("/Content/Images/" + namefile + ".png");
 
                     //Добавление товара в базу
                     db.Products.Add(product);
@@ -137,37 +142,48 @@ namespace StoreAPI.Controllers
         public ActionResult Edit(Product product, HttpPostedFileBase upload)
         {
 
-            if (upload != null)
+            if (ModelState.IsValid && (db.Categories.ToList().Count != 0))
             {
-
-                //Получение пути изображения
-                string fullPath = Server.MapPath("~/Files/" + product.name_product + ".png");
-
-                //Проверка есть ли заданный путь
-                if (System.IO.File.Exists(fullPath))
+                if (upload != null)
                 {
+                    //Получение пути изображения
+                    string fullPath = Server.MapPath("~/Content/Images/" + product.name_product + ".png");
 
-                    //Удаление предыдущего изображения
-                    System.IO.File.Delete(fullPath);
+                    //Проверка есть ли заданный путь
+                    if (System.IO.File.Exists(fullPath))
+                    {
 
-                    //Сохранение нового изображения
-                    upload.SaveAs(Server.MapPath("~/Files/" + product.name_product + ".png"));
+                        //Удаление предыдущего изображения
+                        System.IO.File.Delete(fullPath);
 
-                    //Изменение имени файла для пути с заменёнными пробелами
-                    string namefile = product.name_product.Replace(" ", "%20");
+                        //Сохранение нового изображения
+                        upload.SaveAs(Server.MapPath("~/Content/Images/" + product.name_product + ".png"));
 
-                    // Добавление пути изображения товару в базе
-                    product.image_url = ("/Files/" + namefile + ".png");
+                        //Изменение имени файла для пути с заменёнными пробелами
+                        string namefile = product.name_product.Replace(" ", "%20");
 
+                        // Добавление пути изображения товару в базе
+                        product.image_url = ("/Content/Images/" + namefile + ".png");
+                    }
+                }
+                else 
+                {
+                    string fullPath = Server.MapPath("~/Content/Images/" + product.name_product + ".png");
+
+                    if (System.IO.File.Exists(fullPath))
+                    {
+                        string namefile = product.name_product.Replace(" ", "%20");
+
+                        product.image_url = ("/Content/Images/" + namefile + ".png");
+                    }
                 }
 
                 db.Entry(product).State = EntityState.Modified;
 
                 db.SaveChanges();
-
+                return RedirectToAction("Index");
             }
-
-            return RedirectToAction("Index");
+            return View(product);
         }
 
         [Authorize(Roles = "admin")]
@@ -198,7 +214,7 @@ namespace StoreAPI.Controllers
             db.Products.Remove(product);
 
             //Получение пути изображения
-            string fullPath = Server.MapPath("~/Files/" + product.name_product + ".png");
+            string fullPath = Server.MapPath("~/Images/" + product.name_product + ".png");
 
             //Проверка есть ли заданный путь
             if (System.IO.File.Exists(fullPath))

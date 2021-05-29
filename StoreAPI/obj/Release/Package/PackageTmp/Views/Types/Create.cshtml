@@ -1,0 +1,38 @@
+﻿@model StoreAPI.Models.Type
+
+<h2>Добавление нового типа доставки</h2>
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.name_type_delivery, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.name_type_delivery, new { htmlAttributes = new { @class = "form-control" } })
+                <p class="error">@Html.ValidationMessageFor(model => model.name_type_delivery, "", new { @class = "text-danger" })</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.cost_type_delivery, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.cost_type_delivery, new { htmlAttributes = new { @class = "form-control" } })
+                <p class="error">@Html.ValidationMessageFor(model => model.cost_type_delivery, "", new { @class = "text-danger" })</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Добавить тип доставки"/>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("К списку товаров", "Index")
+</div>

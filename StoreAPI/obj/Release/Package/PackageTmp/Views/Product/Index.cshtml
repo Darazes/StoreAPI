@@ -1,0 +1,39 @@
+﻿@model IEnumerable<StoreAPI.Models.Product>
+
+<div>
+    <h2>Товары</h2>
+
+    <ul>
+        <li>@Html.ActionLink("Поиск по товарам", "Search")</li>
+        <li>@Html.ActionLink("Поиск по категориям", "SearchCategory")</li>
+        <li>@Html.ActionLink("Добавить товар", "Create")</li>
+    </ul>
+</div>
+
+@foreach (var item in Model)
+{
+
+<table>
+    <tr>
+        <td>
+            <img src=@Url.Content(item.image_url) class="img" />
+        </td>
+
+        <td>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_product)</span> : @Html.DisplayFor(modelItem => item.name_product)</p>
+
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.category.name_category)</span> : @Html.DisplayFor(modelItem => item.category.name_category)</p>
+
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_product)</span> : @Html.DisplayFor(modelItem => item.cost_product)</p>
+
+            <p>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.id_product }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id_product }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id_product })
+            </p>
+        </td>
+    </tr>
+</table>
+
+}
+

@@ -1,0 +1,32 @@
+﻿@model StoreAPI.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Подробнее о продукте</h2>
+
+<div>
+    <br>
+
+    <div>
+        <img src=@Url.Content(Model.image_url) class="img" />
+    </div>
+
+    <div>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.category.name_category)</span> : @Html.DisplayFor(model => model.category.name_category)</p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_product)</span> : @Html.DisplayFor(model => model.name_product)</p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_product)</span> : @Html.DisplayFor(model => model.cost_product)</p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.content)</span> : @Html.DisplayFor(model => model.content)</p>
+
+    </div>
+
+</div>
+<p>
+    @Html.ActionLink("Редактировать продукт", "Edit", new { id = Model.id_product }) |
+    @Html.ActionLink("К списку товаров", "Index")
+</p>

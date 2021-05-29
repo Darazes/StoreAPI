@@ -1,0 +1,38 @@
+﻿@model IEnumerable<StoreAPI.Models.Product_storage>
+
+
+<h2>Наличие товара на складе</h2>
+
+<ul>
+    <li>@Html.ActionLink("Добавить поставку", "Create", "Procurements")</li>
+    <li>@Html.ActionLink("Поставки", "Index", "Procurements")</li>
+</ul>
+
+<table class="table">
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.product.name_product)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.count)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <img src=@Url.Content(item.product.image_url) class="small_img" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.product.name_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+
+        </tr>
+    }
+
+</table>

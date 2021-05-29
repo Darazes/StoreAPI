@@ -1,0 +1,40 @@
+﻿@model IEnumerable<StoreAPI.Models.Procurement>
+
+<h2>Поставки</h2>
+
+<p>
+    @Html.ActionLink("Добавить поставку", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(m => m.date_procurement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.count_procurement)
+        </th>
+        <th>
+            @Html.DisplayNameFor(m => m.id_product)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.date_procurement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.count_procurement)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.product.name_product)
+    </td>
+    <td>
+        @Html.ActionLink("Удалить", "Delete", new { id = item.id_procurement })
+    </td>
+</tr>
+}
+
+</table>

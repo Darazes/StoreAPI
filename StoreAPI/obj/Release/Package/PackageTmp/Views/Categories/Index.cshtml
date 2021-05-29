@@ -1,0 +1,28 @@
+﻿@model IEnumerable<StoreAPI.Models.Category>
+
+<h2>Категории</h2>
+
+<p>
+    @Html.ActionLink("Добавить категорию", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            Название категории
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.name_category)
+        </td>
+        <td>
+            @Html.ActionLink("Редактировать", "Edit", new { id=item.id_category }) |
+            @Html.ActionLink("Удалить", "Delete", new { id=item.id_category })
+        </td>
+    </tr>
+}
+
+</table>

@@ -1,0 +1,67 @@
+﻿@model IEnumerable<StoreAPI.Models.Product>
+
+@{
+    ViewBag.Title = "Search";
+}
+
+<h2>Поиск по категориям</h2>
+
+<table>
+    <tr>
+        <td>
+            @using (Html.BeginForm("SearchCategory", "Product", FormMethod.Get))
+            {
+                @Html.TextBox("searching")
+                <input type="submit" value="Поиск" class="btn btn-default" />
+            }
+        </td>
+        <td>@Html.ActionLink("К списку товаров", "Index")</td>
+    </tr>
+</table>
+
+<br>
+
+<table class="table">
+
+        <tr>
+            <th>
+                <p>Название</p>
+            </th>
+            <th>
+                <p>Категория</p>
+            </th>
+            <th>
+                <p>Цена продукта</p>
+            </th>
+            <th>
+                <p></p>
+            </th>
+            <th></th>
+        </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.name_product)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.category.name_category)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.cost_product)
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.id_product }) |
+
+                @Html.ActionLink("Подробнее", "Details", new { id = item.id_product }) |
+
+                @Html.ActionLink("Удалить", "Delete", new { id = item.id_product })
+            </td>
+
+        </tr>
+    }
+
+</table>
+
+

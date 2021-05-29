@@ -1,0 +1,90 @@
+﻿@model StoreAPI.Models.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Заказ №@Html.DisplayFor(model => model.id_request)</h2>
+
+<div>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.customer.login)</span> : @Html.DisplayFor(model => model.customer.login)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.type.name_type_delivery)</span> : @Html.DisplayFor(model => model.type.name_type_delivery)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_request)</span> : @Html.DisplayFor(model => model.date_request)</p>
+
+    <div>
+        <span class="text_bold">@Html.DisplayNameFor(model => model.status)</span> :
+
+        @if (Model.status == 1)
+        {
+            <p><span class="processing text_bold">В обработке</span></p>;
+        }
+        @if (Model.status == 2)
+        {
+            <p><span class="ship text_bold">Ожидает доставки</span></p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
+        }
+        @if (Model.status == 3)
+        {
+            <p><span class="delivery text_bold">Доставляется</span></p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
+        }
+        @if (Model.status == 4)
+        {
+            <p><span class="final text_bold">Завершён</span></p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_confirm)</span> : @Html.DisplayFor(model => model.date_confirm)</p>
+            <p><span class="text_bold">@Html.DisplayNameFor(model => model.date_delivery)</span> : @Html.DisplayFor(model => model.date_delivery)</p>
+        }
+        @if (Model.status == 5)
+        {
+            <p><span class="cancel text_bold">Отменён</span></p>
+        }
+
+        <span class="text_bold">@Html.DisplayNameFor(model => model.cost_request)</span> :
+
+        @if (Model.cost_request != 0)
+        {
+            @Html.DisplayFor(modelItem => Model.cost_request)
+        }
+        else if (Model.status == 1 || Model.cost_request == 0)
+        {
+            <p>Заказ не был подтверждён</p>
+        }
+
+    </div>
+
+</div>
+
+<h4>Список товаров в заказе</h4>
+
+<table class="table">
+
+    <tr>
+        <td>
+            ID товара
+        </td>
+        <td>
+            Количество
+        </td>
+    </tr>
+
+    @foreach (var item in Model.product_requests)
+    {
+        <tr>
+            <td>
+
+                @Html.DisplayFor(modelItem => item.id_product)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.count)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("К списку заказов", "Index")
+</p>

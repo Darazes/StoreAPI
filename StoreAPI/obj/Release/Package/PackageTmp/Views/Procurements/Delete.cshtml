@@ -1,0 +1,37 @@
+﻿@model StoreAPI.Models.Procurement
+
+<h2>Удаление поставки</h2>
+
+<h3>Вы хотите удалить поставку?</h3>
+<div>
+    <br>
+    <div>
+        <div>
+            @Html.DisplayNameFor(model => model.date_procurement)
+
+            @Html.DisplayFor(model => model.date_procurement)
+        </div>
+
+        <div>
+            @Html.DisplayNameFor(model => model.count_procurement)
+
+            @Html.DisplayFor(model => model.count_procurement)
+        </div>
+
+        <div>
+            @Html.DisplayNameFor(model => model.id_product)
+
+            @Html.DisplayFor(model => model.product.name_product)
+        </div>
+
+    </div>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку поставок", "Index")
+        </div>
+    }
+</div>

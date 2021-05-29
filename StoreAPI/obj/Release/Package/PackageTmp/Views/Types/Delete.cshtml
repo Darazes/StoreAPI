@@ -1,0 +1,23 @@
+﻿@model StoreAPI.Models.Type
+
+<h2>Удаление типа доставки</h2>
+
+<h3>Вы хотите удалить тип доставки?</h3>
+
+<div>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_type_delivery)</span> : @Html.DisplayFor(model => model.name_type_delivery)</p>
+
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_type_delivery)</span> : @Html.DisplayFor(model => model.cost_type_delivery)</p>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div>
+            <input type="submit" value="Удалить" /> |
+            @Html.ActionLink("К списку товаров", "Index")
+        </div>
+    }
+</div>

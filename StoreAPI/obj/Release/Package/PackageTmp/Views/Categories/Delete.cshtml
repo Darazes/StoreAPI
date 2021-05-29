@@ -1,0 +1,31 @@
+﻿@model StoreAPI.Models.Category
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Удаление категории</h2>
+
+<h3>Вы хотите удалить категорию?</h3>
+<div>
+    <br>
+    <dl class="dl-horizontal">
+        <dt>
+            Название категории
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.name_category)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку категорий", "Index")
+        </div>
+    }
+</div>

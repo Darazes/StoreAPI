@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <title class="title">Админ панель</title>
+    <link type="text/css" rel="stylesheet" href="@Url.Content("~/Content/Site.css")" />
+    @*@Styles.Render("~/Content/css")*@
+    @*@Scripts.Render("~/bundles/modernizr")*@
+</head>
+
+<body>
+    <header>
+
+        <span class="home">@Html.ActionLink("Админ панель", "Index", "Home")</span>
+
+        @if (ViewBag.account == null)
+        {
+            <span class="account">@Html.ActionLink("Вход", "Login", "Customers")</span>
+        }
+        else 
+        {
+            <span class="account">@Html.ActionLink("Выход", "Logoff", "Customers")</span>
+        }
+
+        <ul class="menu">
+            <li class="menu-li">@Html.ActionLink("Заказы", "Index", "Requests")</li>
+            <li class="menu-li">@Html.ActionLink("Склад", "Index", "Product_storage")</li>
+            <li class="menu-li">@Html.ActionLink("Товары", "Index", "Product")</li>
+            <li class="menu-li">@Html.ActionLink("Категории", "Index", "Categories")</li>
+            <li class="menu-li">@Html.ActionLink("Типы", "Index", "Types")</li>
+            <li class="menu-li">@Html.ActionLink("Пользователи", "Index", "Customers")</li>
+        </ul>
+
+
+
+
+    </header>
+
+    <section class="content">
+        @RenderBody()
+    </section>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>

@@ -1,0 +1,34 @@
+﻿@model StoreAPI.Models.Product
+
+<h2>Удаление товара</h2>
+
+<h3>Вы хотите удалить товар?</h3>
+<div>
+
+    <div>
+        <img src=@Url.Content(Model.image_url) class="img" />
+    </div>
+
+    <div>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.category.name_category)</span> : @Html.DisplayFor(model => model.category.name_category)</p>
+
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_product)</span> : @Html.DisplayFor(model => model.name_product)</p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.cost_product)</span> : @Html.DisplayFor(model => model.cost_product)</p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.content)</span> : @Html.DisplayFor(model => model.content)</p>
+
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку товаров", "Index")
+        </div>
+    }
+</div>
