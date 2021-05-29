@@ -130,7 +130,7 @@ namespace StoreAPI.Controllers
                     if (customer != null)
                     {
                         FormsAuthentication.SetAuthCookie(model.login, true);
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Customers");
                     }
                 }
                 else
@@ -274,7 +274,7 @@ namespace StoreAPI.Controllers
             Customer customer = await db.Customers.FindAsync(id);
             db.Customers.Remove(customer);
             await db.SaveChangesAsync();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Customers");
         }
 
         public string Encode(string input)
