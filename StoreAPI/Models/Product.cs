@@ -50,4 +50,21 @@ namespace StoreAPI.Models
 
 
     }
+
+    public class ProductCustom
+    {
+
+        public int id_product { get; set; }
+
+        public string name_product { get; set; }
+
+        public float cost_product { get; set; }
+
+        public string content { get; set; }
+
+        public int id_category { get; set; }
+
+        public string image_url { get; set; }
+
+    }
 }

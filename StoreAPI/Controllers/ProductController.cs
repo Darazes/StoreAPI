@@ -28,9 +28,23 @@ namespace StoreAPI.Controllers
         //Открыт для незарегестрированных пользователей
         public string IndexJson()
         {
-            List<Product> products = db.Products.ToList();
 
-            string json = JsonConvert.SerializeObject(products, Formatting.Indented);
+            List<Product> products = db.Products.ToList();
+            List<ProductCustom> newproducts = new List<ProductCustom>();
+
+            foreach (Product item in products)
+            {
+                ProductCustom product = new ProductCustom();
+                product.id_product = item.id_product;
+                product.name_product = item.name_product;
+                product.cost_product = item.cost_product;
+                product.content = item.content;
+                product.id_category = item.id_category;
+                product.image_url = item.image_url;
+                newproducts.Add(product);
+            }
+
+            string json = JsonConvert.SerializeObject(newproducts, Formatting.Indented);
 
             return json;
         }
