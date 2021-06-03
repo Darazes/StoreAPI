@@ -60,4 +60,18 @@ namespace StoreAPI.Models
     {
         public string status  { get; set; }
     }
+
+    public class Profile
+    {
+        public int id_customer { get; set; }
+        public string login { get; set; }
+        public string phone { get; set; }
+        public string adress_customer { get; set; }
+
+    }
+
+    public class ID
+    {
+        public int id_customer { get; set; }
+    }
 }

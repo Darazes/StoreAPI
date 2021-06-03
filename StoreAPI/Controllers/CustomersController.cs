@@ -99,7 +99,23 @@ namespace StoreAPI.Controllers
 
         }
 
-        [Authorize(Roles = "admin")]
+        [HttpPost]
+        [Route("api/[controller]")]
+        public string AccountJson(ID model)
+        {
+            Customer customer = db.Customers.FirstOrDefault(i => i.id_customer == model.id_customer);
+            Profile profile = new Profile();
+
+            profile.id_customer = customer.id_customer;
+            profile.login = customer.login;
+            profile.phone = customer.phone;
+            profile.adress_customer = customer.adress_customer;
+
+            string json = JsonConvert.SerializeObject(profile, Formatting.Indented);
+            return json;
+        }
+
+            [Authorize(Roles = "admin")]
         public ActionResult Register()
         {
             return View();
