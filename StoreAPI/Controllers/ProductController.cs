@@ -49,6 +49,13 @@ namespace StoreAPI.Controllers
             return json;
         }
 
+        public int IdCategory(int id)
+        {
+            var product = db.Products.Include(c => c.category).SingleOrDefault(i=>i.id_product == id);
+
+            return product.id_category;
+        }
+
         [Authorize(Roles = "admin")]
         public ActionResult Search(string searching)
         {

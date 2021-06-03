@@ -55,4 +55,9 @@ namespace StoreAPI.Models
         public string password { get; set; }
 
     }
+
+    public class AccountStatus
+    {
+        public string status  { get; set; }
+    }
 }

@@ -4,23 +4,13 @@
     ViewBag.Title = "Delete";
 }
 
-<h2>Удаление категории</h2>
-
-<h3>Вы хотите удалить категорию?</h3>
+<h2>Вы хотите удалить категорию?</h2>
 <div>
-    <br>
-    <dl class="dl-horizontal">
-        <dt>
-            Название категории
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.name_category)
-        </dd>
+    <p><span class="text_bold">@Html.DisplayNameFor(model => model.name_category)</span> : @Html.DisplayFor(model => model.name_category)</p>
 
-    </dl>
-
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm())
+    {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">

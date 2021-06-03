@@ -65,30 +65,36 @@ namespace StoreAPI.Controllers
         [HttpPost]
         [Route("api/[controller]")]
         public string LoginJson(Account model)
-        { 
-            if (model.login == null || model.password == null)
-            {
-                return "Заполните все поля";
-            }
+        {
+            var ID = new AccountStatus();
 
             model.password = Encode(model.password);
 
             Customer customer =  db.Customers.FirstOrDefault(u => u.login == model.login);
 
-
             if (customer != null)
             {
-                Customer customerl = db.Customers.FirstOrDefault(u => u.login == model.login && u.password == model.password);
-                if (customerl != null)
+                Customer customer_base = db.Customers.FirstOrDefault(u => u.login == model.login && u.password == model.password);
+                if (customer_base != null)
                 {
                     FormsAuthentication.SetAuthCookie(model.login, true);
-                    return "Успешный вход";
+
+                    ID.status = "Успешный вход";
+                    string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
+                    return json;
                 }
-                else return "Неверный пароль";
+                else 
+                {
+                    ID.status = "Неверный пароль";
+                    string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
+                    return json;
+                }
             }
             else
             {
-                return "Такого пользователя не существует";
+                ID.status = "Такого пользователя не существует";
+                string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
+                return json;
             }
 
         }

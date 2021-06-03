@@ -26,13 +26,22 @@
         <th>
             @Html.DisplayNameFor(model => model.adress_customer)
         </th>
+        <th>
+        </th>
     </tr>
 
 @foreach (var item in Model) {
 <tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.role.name)
-    </td>
+
+    @if (item.role.id == 1)
+    {
+        <td>Администратор</td>
+    }
+    @if (item.role.id == 2)
+    {
+        <td>Пользователь</td>
+    }
+
     <td></td>
     <td>
         @Html.DisplayFor(modelItem => item.login)
@@ -45,6 +54,12 @@
     <td>
         @Html.DisplayFor(modelItem => item.adress_customer)
     </td>
+    @if (item.id_customer != 1)
+    {
+    <td>
+        @Html.ActionLink("Удалить", "Delete", new { id = item.id_customer })
+    </td>
+    }
 </tr>
 }
 

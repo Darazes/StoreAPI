@@ -1,0 +1,38 @@
+﻿@model StoreAPI.Models.Customer
+
+@{
+    ViewBag.Title = "Delete";
+}
+<h2>Вы хотите удалить пользователя?</h2>
+<div>
+    <div>
+
+
+        <p>
+            <span class="text_bold">@Html.DisplayNameFor(model => model.role.name)</span> :
+
+            @if (Model.roleid == 1)
+            {
+                <span>Администратор</span>
+            }
+            @if (Model.roleid == 2)
+            {
+                <span>Пользователь</span>
+            }
+        </p>
+
+        <p><span class="text_bold">@Html.DisplayNameFor(model => model.login)</span> : @Html.DisplayFor(model => model.login)</p>
+        
+    </div>
+
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Удалить" class="btn btn-default" /> |
+            @Html.ActionLink("К списку пользователей", "Index")
+        </div>
+    }
+</div>
