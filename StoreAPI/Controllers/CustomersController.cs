@@ -99,6 +99,7 @@ namespace StoreAPI.Controllers
 
         }
 
+        [Authorize(Roles = "admin,user")]
         [HttpPost]
         [Route("api/[controller]")]
         public string AccountJson(ID model)
@@ -115,7 +116,21 @@ namespace StoreAPI.Controllers
             return json;
         }
 
-            [Authorize(Roles = "admin")]
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public string StatusJson()
+        {
+            ID id = new ID();
+
+            id.id_customer = 0;
+
+            string json = JsonConvert.SerializeObject(id);
+
+            return json;
+        }
+
+
+        [Authorize(Roles = "admin")]
         public ActionResult Register()
         {
             return View();

@@ -186,6 +186,17 @@ namespace StoreAPI.Controllers
                         // Добавление пути изображения товару в базе
                         product.image_url = ("/Content/Images/" + namefile + ".png");
                     }
+                    else 
+                    {
+                        //Сохранение нового изображения
+                        upload.SaveAs(Server.MapPath("~/Content/Images/" + product.name_product + ".png"));
+
+                        //Изменение имени файла для пути с заменёнными пробелами
+                        string namefile = product.name_product.Replace(" ", "%20");
+
+                        // Добавление пути изображения товару в базе
+                        product.image_url = ("/Content/Images/" + namefile + ".png");
+                    }
                 }
                 else 
                 {
@@ -197,6 +208,7 @@ namespace StoreAPI.Controllers
 
                         product.image_url = ("/Content/Images/" + namefile + ".png");
                     }
+                    else return RedirectToAction("Edit", "Product");
                 }
 
                 db.Entry(product).State = EntityState.Modified;

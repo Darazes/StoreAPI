@@ -17,7 +17,7 @@ namespace StoreAPI
         protected void Application_Start()
         {
 
-            //Database.SetInitializer(new StoreDbInitializer());
+            Database.SetInitializer(new StoreDbInitializer());
 
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
