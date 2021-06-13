@@ -62,6 +62,40 @@ namespace StoreAPI.Controllers
             return View(db.Products.Where(n => n.name_product.Contains(searching) || searching == null).Include(c => c.category).ToList());
         }
 
+        [HttpPost]
+        [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
+        public string SearchJson(Search model)
+        {
+
+            var list = db.Products.Where(n => n.name_product.Contains(model.search) || model.search == null).ToList();
+
+            List<ProductCustom> newproducts = new List<ProductCustom>();
+
+            foreach (Product item in list)
+            {
+                ProductCustom product = new ProductCustom();
+                product.id_product = item.id_product;
+                product.name_product = item.name_product;
+                product.cost_product = item.cost_product;
+                product.content = item.content;
+                product.id_category = item.id_category;
+                product.image_url = item.image_url;
+                newproducts.Add(product);
+            }
+
+
+
+            if (newproducts != null)
+            {
+                string jsonBase = JsonConvert.SerializeObject(newproducts);
+                return jsonBase;
+            }
+            else return "Нет";
+
+            
+        }
+
         [Authorize(Roles = "admin")]
         public ActionResult SearchCategory(string searching)
         {

@@ -71,4 +71,9 @@ namespace StoreAPI.Models
         public string image_url { get; set; }
 
     }
+
+    public class Search
+    {
+        public string search { get; set; }
+    }
 }
