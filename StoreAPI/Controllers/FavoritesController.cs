@@ -16,9 +16,9 @@ namespace StoreAPI.Controllers
         public string IndexJson()
         {
 
-            List<Favorite> customers = db.Favorites.ToList();
+            List<Favorite> favorites = db.Favorites.ToList();
 
-            string json = JsonConvert.SerializeObject(customers);
+            string json = JsonConvert.SerializeObject(favorites);
 
             return json;
         }
@@ -32,9 +32,9 @@ namespace StoreAPI.Controllers
             if (db.Favorites.Where(c => c.id_customer == model.id_customer).ToList() != null && model != null && db.Customers.Where(c => c.id_customer == model.id_customer).FirstOrDefault() != null)
             {
             
-                List<Favorite> customers = db.Favorites.Where(c => c.id_customer == model.id_customer).ToList();
+                List<Favorite> favorites = db.Favorites.Where(c => c.id_customer == model.id_customer).ToList();
 
-                string json = JsonConvert.SerializeObject(customers);
+                string json = JsonConvert.SerializeObject(favorites);
 
                 return json;
             }
@@ -94,11 +94,11 @@ namespace StoreAPI.Controllers
         [HttpPost]
         [Route("api/[controller]")]
         [Authorize(Roles = "admin,user")]
-        public string DeleteFavorite(FavoriteCustom model)
+        public string DeleteFavorite(FeedBackID model)
         {
             if (model != null)
             {
-                Favorite favorite = db.Favorites.Where(p => p.id_product == model.id_product).Where(c => c.id_customer == model.id_customer).ToList().FirstOrDefault();
+                Favorite favorite = db.Favorites.Where(c => c.id_customer == model.id_customer).ToList().FirstOrDefault();
 
                 Favorite favoriteDelete = db.Favorites.Find(favorite.id_favorite);
 

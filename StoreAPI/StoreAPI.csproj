@@ -242,6 +242,7 @@
     <Compile Include="Controllers\CategoriesController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\FavoritesController.cs" />
+    <Compile Include="Controllers\FeedBackController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ProcurementsController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
@@ -434,6 +435,7 @@
   <ItemGroup>
     <Folder Include="Files\" />
     <Folder Include="Views\Favorites\" />
+    <Folder Include="Views\FeedBack\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

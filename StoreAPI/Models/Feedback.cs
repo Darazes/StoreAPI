@@ -17,4 +17,16 @@ namespace StoreAPI.Models
         [Required]
         public string content { get; set; }
     }
+
+    public class FeedBackCustom
+    {
+        public int id_customer { get; set; }
+
+        public string content { get; set; }
+    }
+
+    public class FeedBackID
+    {
+        public int id_customer { get; set; }
+    }
 }
