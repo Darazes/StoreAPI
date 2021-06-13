@@ -145,9 +145,10 @@ namespace StoreAPI.Controllers
             Customer model = new Customer();
 
             model.login = modelmodified.login;
-            model.password = modelmodified.password;
+            model.password = Encode(modelmodified.password);
             model.phone = "-";
             model.adress_customer = "-";
+            model.roleid = 1;
 
             if (model.login != null && model.password != null)
             {
@@ -156,7 +157,7 @@ namespace StoreAPI.Controllers
                 if (customer == null)
                 {
 
-                    model.roleid = 1;
+                    
 
                     db.Customers.Add(model);
                     db.SaveChanges();
@@ -231,6 +232,25 @@ namespace StoreAPI.Controllers
             {
                 ViewBag.account = "Войти";
                 return RedirectToAction("Login", "Customers");
+            }
+        }
+
+        public string LogoffJson()
+        {
+            var ID = new AccountStatus();
+
+            if (User.Identity.IsAuthenticated)
+            {
+                FormsAuthentication.SignOut();
+                ID.status = "Успешный выход";
+                string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
+                return json;
+            }
+            else
+            {
+                ID.status = "Пользователь не авторизован";
+                string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
+                return json;
             }
         }
 

@@ -7,6 +7,7 @@ using System.Net;
 using System.Web.Mvc;
 using StoreAPI.Models;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StoreAPI.Controllers
 {
@@ -27,13 +28,20 @@ namespace StoreAPI.Controllers
         [HttpPost]
         [Route("api/[controller]")]
         [Authorize(Roles = "admin,user")]
-        public string CreateJson(RequestCustom model)
+        public String CreateJson(RequestCustom model)
         {
+
+            var requestAnswer = new RequestCancel();
 
             if (db.Customers.Where(u => u.id_customer == model.id_customer).FirstOrDefault() != null) 
             {
 
-                if (db.Types.SingleOrDefault(i => i.id_type_delivery == model.id_type_delivery) == null) return "Выбранного типа доставки не существует";
+                if (db.Types.SingleOrDefault(i => i.id_type_delivery == model.id_type_delivery) == null) 
+                {
+                    requestAnswer.id_request = 0;
+                    string json = JsonConvert.SerializeObject(requestAnswer, Formatting.Indented);
+                    return json;
+                 }
 
                 Request request = new Request();
 
@@ -59,18 +67,31 @@ namespace StoreAPI.Controllers
                 }
                 else
                 {
-                    return "Ошибка создания заказа, такой заказ уже существует, попробуйте ещё раз" + request.id_request;
+                    requestAnswer.id_request = 0;
+                    string json = JsonConvert.SerializeObject(requestAnswer, Formatting.Indented);
+                    return json;
                 }
 
                 Request request_db = db.Requests.Where(u => u.id_request == request.id_request).FirstOrDefault();
 
-                if (request_db != null) return request.id_request.ToString();
+                if (request_db != null) 
+                {
+                    requestAnswer.id_request = request.id_request;
+                    string json = JsonConvert.SerializeObject(requestAnswer, Formatting.Indented);
+                    return json;
+                }
 
-                else return "Ошибка добавления заказа";
+                else 
+                {
+                    requestAnswer.id_request = 0;
+                    string json = JsonConvert.SerializeObject(requestAnswer, Formatting.Indented);
+                    return json;
+                }
 
             }
 
-            return "Вы не авторизованы / Такого пользователя не существует";
+            requestAnswer.id_request = 0;
+            return JsonConvert.SerializeObject(requestAnswer, Formatting.Indented);
 
         }
 

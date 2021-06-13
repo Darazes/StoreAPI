@@ -32,10 +32,14 @@ namespace StoreAPI.Models
         public Role role { get; set; }
 
         public ICollection<Request> requests { get; set; }
+        public ICollection<Favorite> favorites { get; set; }
+        public ICollection<Feedback> feedbacks { get; set; }
 
         public Customer()
         {
             requests = new List<Request>();
+            favorites = new List<Favorite>();
+            feedbacks = new List<Feedback>();
         }
 
     }

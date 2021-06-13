@@ -36,6 +36,8 @@ namespace StoreAPI.Models
 
         public ICollection<Product_storage> product_storages { get; set; }
 
+        public ICollection<Favorite> favorites { get; set; }
+
 
         public Product()
         {
@@ -45,6 +47,8 @@ namespace StoreAPI.Models
             product_requests = new List<Product_request>();
 
             product_storages = new List<Product_storage>();
+
+            favorites = new List<Favorite>();
 
         }
 

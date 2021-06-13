@@ -26,6 +26,10 @@ namespace StoreAPI.Models
 
         public DbSet<Role> Roles { get; set; }
 
+        public DbSet<Favorite> Favorites { get; set; }
+
+        public DbSet<Feedback> Feedbacks { get; set; }
+
         public StoreContext() : base("StoreContext")
         { }
 
