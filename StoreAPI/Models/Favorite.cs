@@ -24,4 +24,10 @@ namespace StoreAPI.Models
 
         public int id_customer { get; set; }
     }
+
+    public class FavoritesUser
+    {
+        public int id_customer { get; set; }
+    }
+
 }

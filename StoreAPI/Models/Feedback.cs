@@ -13,5 +13,8 @@ namespace StoreAPI.Models
 
         [Required]
         public int id_customer { get; set; }
+
+        [Required]
+        public string content { get; set; }
     }
 }

@@ -26,11 +26,28 @@ namespace StoreAPI.Controllers
         [HttpPost]
         [Route("api/[controller]")]
         [Authorize(Roles = "admin,user")]
+        public string UserFavorites(FavoritesUser model)
+        {
+
+            if (db.Favorites.Where(c => c.id_customer == model.id_customer).ToList() != null && model != null && db.Customers.Where(c => c.id_customer == model.id_customer).FirstOrDefault() != null)
+            {
+            
+                List<Favorite> customers = db.Favorites.Where(c => c.id_customer == model.id_customer).ToList();
+
+                string json = JsonConvert.SerializeObject(customers);
+
+                return json;
+            }
+            return "В избранном нет ни одного товара";
+        }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
         public string AddFavorite(FavoriteCustom model)
         {
 
-            if (db.Favorites.Where(p => p.id_product == model.id_product).Where(c => c.id_customer == model.id_customer).FirstOrDefault() == null &&
-                model != null)
+            if (db.Favorites.Where(p => p.id_product == model.id_product).Where(c => c.id_customer == model.id_customer).FirstOrDefault() == null &&model != null)
             {
 
                 Favorite favorite = new Favorite();
