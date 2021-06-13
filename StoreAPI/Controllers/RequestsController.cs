@@ -132,6 +132,38 @@ namespace StoreAPI.Controllers
 
         }
 
+        [HttpPost]
+        [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
+        public string AllRequest(RequestCustomer model)
+        {
+            if (db.Requests.Where(r => r.id_customer == model.id_customer).ToList() != null && model != null)
+            {
+                var requests = db.Requests.Where(r => r.id_customer == model.id_customer).ToList();
+
+                var json = JsonConvert.SerializeObject(requests, Formatting.Indented);
+
+                return json;
+            }
+            else return "Нет ни одного заказа";
+        }
+
+        [HttpPost]
+        [Route("api/[controller]")]
+        [Authorize(Roles = "admin,user")]
+        public string GetRequest(RequestCancel model)
+        {
+            if (db.Requests.Where(r => r.id_request == model.id_request).FirstOrDefault() != null && model != null)
+            {
+                var requests = db.Requests.Where(r => r.id_request == model.id_request).FirstOrDefault();
+
+                var json = JsonConvert.SerializeObject(requests, Formatting.Indented);
+
+                return json;
+            }
+            else return "Заказа не существует";
+        }
+
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> Details(int? id)
         {

@@ -116,6 +116,37 @@ namespace StoreAPI.Controllers
             return json;
         }
 
+        [Authorize(Roles = "admin,user")]
+        [HttpPost]
+        [Route("api/[controller]")]
+        public string EditAccountJson(Profile model)
+        {
+            Customer customer = new Customer();
+            Customer customerEdit = new Customer();
+
+            if (model != null) customer = db.Customers.FirstOrDefault(i => i.id_customer == model.id_customer);
+
+            if (customer != null)
+            {
+                customerEdit = db.Customers.FirstOrDefault(i => i.id_customer == model.id_customer);
+
+                customerEdit.login = customer.login;
+                customerEdit.password = customer.password;
+                customerEdit.phone = model.phone;
+                customerEdit.adress_customer = model.adress_customer;
+                customerEdit.roleid = 2;
+                customerEdit.role = null;
+
+                db.Entry(customerEdit).State = EntityState.Modified;
+                db.SaveChangesAsync();
+
+                string json = JsonConvert.SerializeObject(customerEdit, Formatting.Indented);
+                return json;
+            }
+            return "Пользователя не существует";
+
+        }
+
         [HttpGet]
         [Authorize(Roles = "admin")]
         public string StatusJson()

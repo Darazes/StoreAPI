@@ -63,6 +63,11 @@ namespace StoreAPI.Models
         public int id_request { get; set; }
     }
 
+    public class RequestCustomer
+    {
+        public int id_customer { get; set; }
+    }
+
     public class Product_count
     {
         public int id_product { get; set; }
