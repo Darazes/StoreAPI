@@ -66,7 +66,7 @@ namespace StoreAPI.Controllers
         [Route("api/[controller]")]
         public string LoginJson(Account model)
         {
-            var ID = new AccountStatus();
+            var ID = new ID();
 
             model.password = Encode(model.password);
 
@@ -79,20 +79,20 @@ namespace StoreAPI.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(model.login, true);
 
-                    ID.status = "Успешный вход";
+                    ID.id_customer = customer_base.id_customer;
                     string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
                     return json;
                 }
                 else 
                 {
-                    ID.status = "Неверный пароль";
+                    ID.id_customer = 0;
                     string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
                     return json;
                 }
             }
             else
             {
-                ID.status = "Такого пользователя не существует";
+                ID.id_customer = 0;
                 string json = JsonConvert.SerializeObject(ID, Formatting.Indented);
                 return json;
             }

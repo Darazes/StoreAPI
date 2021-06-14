@@ -7,14 +7,14 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA9Fn0wCS2tkym9ENtVTsKSwAAAAACAAAAAAAQZgAAAAEAACAAAAAiS90sEmfn7dX3m8EZuDncSddvILMo9EWnJVWirzoicQAAAAAOgAAAAAIAACAAAABx+/r4kXowkA/GcF2xoIEESkd71hx0nAA/bq9k939pjyAAAACctka0nn10PkiNZk2Os5c/ZTkLWFwKB9+yDIt+au6Y2kAAAAAixibNR0PcDTCoENjTMK3bmPF/OfZ5jDHCQGh+XoL21e0CFAhqRe7VNd+RHSCiEgXsq9YR+sfIbqmSRk/Yv1my</EncryptedPassword>
-    <_PublishTargetUrl>C:\Users\Daniil\Desktop\Server</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\Daniil\Desktop\ServerClientBezPDF</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/StoreBase.mdf">
-      <publishTime>06/05/2021 02:00:17</publishTime>
+      <publishTime>06/14/2021 18:33:25</publishTime>
     </File>
     <File Include="App_Data/StoreBase_log.ldf">
-      <publishTime>06/05/2021 02:00:17</publishTime>
+      <publishTime>06/14/2021 18:33:25</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 17:29:20</publishTime>
@@ -227,10 +227,10 @@
       <publishTime>11/28/2018 13:04:46</publishTime>
     </File>
     <File Include="bin/StoreAPI.dll">
-      <publishTime>06/06/2021 11:52:00</publishTime>
+      <publishTime>06/14/2021 18:33:57</publishTime>
     </File>
     <File Include="bin/StoreAPI.pdb">
-      <publishTime>06/06/2021 11:52:00</publishTime>
+      <publishTime>06/14/2021 18:33:57</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>05/15/2018 13:29:34</publishTime>
@@ -695,7 +695,7 @@
       <publishTime>05/29/2021 18:50:54</publishTime>
     </File>
     <File Include="Views/Types/Index.cshtml">
-      <publishTime>05/12/2021 19:28:41</publishTime>
+      <publishTime>06/09/2021 21:26:23</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>11/16/2020 17:13:19</publishTime>
