@@ -54,7 +54,7 @@
     <td>
         @Html.DisplayFor(modelItem => item.adress_customer)
     </td>
-    @if (item.id_customer != 1)
+    @if (item.id_customer != 1 && item.roleid == 1)
     {
     <td>
         @Html.ActionLink("Удалить", "Delete", new { id = item.id_customer })

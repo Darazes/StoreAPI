@@ -3,12 +3,37 @@ using System.Threading.Tasks;
 using System.Net;
 using System.Web.Mvc;
 using StoreAPI.Models;
+using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace StoreAPI.Controllers
 {
     public class TypesController : Controller
     {
         private StoreContext db = new StoreContext();
+
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<string> IndexJson()
+        {
+
+            List<Type> types = await db.Types.ToListAsync();
+            List<TypeCustom> typesCustom = new List<TypeCustom>();
+
+            TypeCustom type = new TypeCustom();
+
+            foreach (Type item in types)
+            {
+                type.id_type_delivery = item.id_type_delivery;
+                type.name_type_delivery = item.name_type_delivery;
+                type.cost_type_delivery = item.cost_type_delivery;
+                typesCustom.Add(type);
+            }
+
+            string json = JsonConvert.SerializeObject(typesCustom);
+
+            return json;
+        }
 
         [Authorize(Roles = "admin")]
         public async Task<ActionResult> Index()

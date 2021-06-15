@@ -100,8 +100,10 @@ namespace StoreAPI.Controllers
         [Authorize(Roles = "admin,user")]
         public string AddProductJson(Product_request_custom model)
         {
-            if (db.Requests.SingleOrDefault(i => i.id_request == model.id_request) == null) return "Выбранного заказа не существует";
-            if (db.Products.SingleOrDefault(i => i.id_product == model.id_product) == null) return "Выбранного товара не существует";
+            string json = JsonConvert.SerializeObject(model, Formatting.Indented);
+
+            if (db.Requests.SingleOrDefault(i => i.id_request == model.id_request) == null) return json;
+            if (db.Products.SingleOrDefault(i => i.id_product == model.id_product) == null) return json;
 
             var product_Request_list = db.Product_requests.ToList();
 
@@ -124,13 +126,14 @@ namespace StoreAPI.Controllers
 
                 if (db.Products.Where(p => p.id_product == product_Request.id_product).FirstOrDefault() != null)
                 {
-                    return "Товар успешно добавлен в заказ";
+                    return json;
                 }
-                return "Такого товара не существует";
+                return json;
             }
-            else return "Товар c таким id уже есть";
-
+            else return json;
         }
+
+        
 
         [HttpPost]
         [Route("api/[controller]")]
@@ -182,7 +185,7 @@ namespace StoreAPI.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<ActionResult> СonfirmDetails(int? id)
+        public async Task<ActionResult> ConfirmDetails(int? id)
         {
             ViewBag.date = DateTime.Now;
 
@@ -214,7 +217,7 @@ namespace StoreAPI.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<ActionResult> Сonfirm(int? id)
+        public async Task<ActionResult> Confirm(int? id)
         {
 
             var request = await db.Requests.Include(r => r.product_requests).SingleOrDefaultAsync(r => r.id_request == id);
@@ -231,12 +234,12 @@ namespace StoreAPI.Controllers
 
                     if (product == null)
                     {
-                        return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");
+                        return RedirectToAction("ConfirmDetails" + "/" + id, "Requests");
 
                     } 
                     if (product.count < item.count)
                     {
-                        return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");
+                        return RedirectToAction("ConfirmDetails" + "/" + id, "Requests");
                     } 
                 }
 
@@ -263,14 +266,14 @@ namespace StoreAPI.Controllers
             }
             else
             {
-                return RedirectToAction("СonfirmDetails" + "/" + id, "Requests");
+                return RedirectToAction("ConfirmDetails" + "/" + id, "Requests");
             }
 
         }
 
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<ActionResult> СonfirmShip(int? id)
+        public async Task<ActionResult> ConfirmShip(int? id)
         {
 
             if (id == null)
@@ -288,7 +291,7 @@ namespace StoreAPI.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<ActionResult> СonfirmShipPost(int? id)
+        public async Task<ActionResult> ConfirmShipPost(int? id)
         {
 
             var request = await db.Requests.FindAsync(id);
@@ -304,7 +307,7 @@ namespace StoreAPI.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpGet]
-        public async Task<ActionResult> СonfirmDelivery(int? id)
+        public async Task<ActionResult> ConfirmDelivery(int? id)
         {
             ViewBag.date = DateTime.Now;
 
@@ -323,7 +326,7 @@ namespace StoreAPI.Controllers
 
         [Authorize(Roles = "admin")]
         [HttpPost]
-        public async Task<ActionResult> СonfirmDeliveryPost(int? id)
+        public async Task<ActionResult> ConfirmDeliveryPost(int? id)
         {
 
             var request = await db.Requests.FindAsync(id);

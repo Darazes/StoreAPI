@@ -411,15 +411,15 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
-    <Content Include="Views\Requests\СonfirmDetails.cshtml" />
-    <Content Include="Views\Requests\СonfirmDelivery.cshtml" />
     <Content Include="Views\Types\Index.cshtml" />
     <Content Include="Views\Types\Create.cshtml" />
     <Content Include="Views\Types\Delete.cshtml" />
     <Content Include="Views\Types\Edit.cshtml" />
     <Content Include="Views\Requests\CancelDetails.cshtml" />
-    <Content Include="Views\Requests\СonfirmShip.cshtml" />
+    <Content Include="Views\Requests\ConfirmShip.cshtml" />
     <Content Include="Views\Customers\Delete.cshtml" />
+    <Content Include="Views\Requests\ConfirmDelivery.cshtml" />
+    <Content Include="Views\Requests\ConfirmDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

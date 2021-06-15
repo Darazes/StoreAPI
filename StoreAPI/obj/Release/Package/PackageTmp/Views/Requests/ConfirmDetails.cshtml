@@ -46,7 +46,7 @@
 
 </table>
 
-@using (Html.BeginForm("Сonfirm" + "/" + Model.id_request, "Requests"))
+@using (Html.BeginForm("Confirm" + "/" + Model.id_request, "Requests"))
 {
     @Html.TextBox(Model.id_request.ToString(), FormMethod.Post, htmlAttributes: new { @class = "null" })
     <input type="submit" value="Подтвердить заказ" class="btn btn-default" />

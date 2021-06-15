@@ -85,15 +85,15 @@
 
         @if (item.status == 1)
         {
-            @Html.ActionLink("Подтвердить заказ", "СonfirmDetails", new { id = item.id_request })
+            @Html.ActionLink("Подтвердить заказ", "ConfirmDetails", new { id = item.id_request })
         }
         @if (item.status == 2)
         {
-            @Html.ActionLink("Подтвердить отправку", "СonfirmShip", new { id = item.id_request })
+            @Html.ActionLink("Подтвердить отправку", "ConfirmShip", new { id = item.id_request })
         }
         @if (item.status == 3)
         {
-            @Html.ActionLink("Подтвердить доставку", "СonfirmDelivery", new { id = item.id_request })
+            @Html.ActionLink("Подтвердить доставку", "ConfirmDelivery", new { id = item.id_request })
         }
 
     </td>

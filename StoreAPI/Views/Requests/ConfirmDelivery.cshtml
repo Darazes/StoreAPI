@@ -48,7 +48,7 @@
 
 </table>
 
-@using (Html.BeginForm("СonfirmDeliveryPost" + "/" + Model.id_request, "Requests"))
+@using (Html.BeginForm("ConfirmDeliveryPost" + "/" + Model.id_request, "Requests"))
 {
     @Html.TextBox(Model.id_request.ToString(), FormMethod.Post, htmlAttributes: new { @class = "null" })
     <input type="submit" value="Подтвердить доставку" class="btn btn-default" />

@@ -28,4 +28,15 @@ namespace StoreAPI.Models
 
 
     }
+
+    public class TypeCustom
+    {
+
+        public int id_type_delivery { get; set; }
+
+        public string name_type_delivery { get; set; }
+
+        public float cost_type_delivery { get; set; }
+
+    }
 }

@@ -7,14 +7,14 @@
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
     <EncryptedPassword>AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA9Fn0wCS2tkym9ENtVTsKSwAAAAACAAAAAAAQZgAAAAEAACAAAAAiS90sEmfn7dX3m8EZuDncSddvILMo9EWnJVWirzoicQAAAAAOgAAAAAIAACAAAABx+/r4kXowkA/GcF2xoIEESkd71hx0nAA/bq9k939pjyAAAACctka0nn10PkiNZk2Os5c/ZTkLWFwKB9+yDIt+au6Y2kAAAAAixibNR0PcDTCoENjTMK3bmPF/OfZ5jDHCQGh+XoL21e0CFAhqRe7VNd+RHSCiEgXsq9YR+sfIbqmSRk/Yv1my</EncryptedPassword>
-    <_PublishTargetUrl>C:\Users\Daniil\Desktop\ServerClientBezPDF</_PublishTargetUrl>
+    <_PublishTargetUrl>C:\Users\Daniil\Desktop\SerFin1.1</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="App_Data/StoreBase.mdf">
-      <publishTime>06/14/2021 18:33:25</publishTime>
+      <publishTime>06/16/2021 00:30:40</publishTime>
     </File>
     <File Include="App_Data/StoreBase_log.ldf">
-      <publishTime>06/14/2021 18:33:25</publishTime>
+      <publishTime>06/16/2021 00:30:40</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>09/10/2013 17:29:20</publishTime>
@@ -227,10 +227,10 @@
       <publishTime>11/28/2018 13:04:46</publishTime>
     </File>
     <File Include="bin/StoreAPI.dll">
-      <publishTime>06/14/2021 18:33:57</publishTime>
+      <publishTime>06/16/2021 00:31:16</publishTime>
     </File>
     <File Include="bin/StoreAPI.pdb">
-      <publishTime>06/14/2021 18:33:57</publishTime>
+      <publishTime>06/16/2021 00:31:16</publishTime>
     </File>
     <File Include="bin/System.Buffers.dll">
       <publishTime>05/15/2018 13:29:34</publishTime>
@@ -617,7 +617,7 @@
       <publishTime>05/29/2021 19:15:52</publishTime>
     </File>
     <File Include="Views/Customers/Index.cshtml">
-      <publishTime>05/29/2021 19:17:05</publishTime>
+      <publishTime>06/15/2021 21:59:18</publishTime>
     </File>
     <File Include="Views/Customers/Login.cshtml">
       <publishTime>05/29/2021 18:47:51</publishTime>
@@ -629,7 +629,7 @@
       <publishTime>05/01/2021 01:19:10</publishTime>
     </File>
     <File Include="Views/Procurements/Create.cshtml">
-      <publishTime>05/29/2021 18:48:06</publishTime>
+      <publishTime>06/15/2021 22:51:57</publishTime>
     </File>
     <File Include="Views/Procurements/Delete.cshtml">
       <publishTime>04/30/2021 22:00:53</publishTime>
@@ -664,11 +664,20 @@
     <File Include="Views/Requests/CancelDetails.cshtml">
       <publishTime>05/14/2021 12:28:34</publishTime>
     </File>
+    <File Include="Views/Requests/ConfirmDelivery.cshtml">
+      <publishTime>06/16/2021 00:29:49</publishTime>
+    </File>
+    <File Include="Views/Requests/ConfirmDetails.cshtml">
+      <publishTime>06/16/2021 00:26:29</publishTime>
+    </File>
+    <File Include="Views/Requests/ConfirmShip.cshtml">
+      <publishTime>06/16/2021 00:28:15</publishTime>
+    </File>
     <File Include="Views/Requests/Details.cshtml">
       <publishTime>05/16/2021 00:32:12</publishTime>
     </File>
     <File Include="Views/Requests/Index.cshtml">
-      <publishTime>05/14/2021 13:44:32</publishTime>
+      <publishTime>06/16/2021 00:23:52</publishTime>
     </File>
     <File Include="Views/Requests/СonfirmDelivery.cshtml">
       <publishTime>05/14/2021 12:17:11</publishTime>

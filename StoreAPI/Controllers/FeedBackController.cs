@@ -14,7 +14,6 @@ namespace StoreAPI.Controllers
         private StoreContext db = new StoreContext();
 
         [HttpGet]
-        [Authorize(Roles = "admin,user")]
         public string IndexJson()
         {
 
@@ -83,13 +82,37 @@ namespace StoreAPI.Controllers
             {
                 Feedback feedback = db.Feedbacks.Where(c => c.id_customer == model.id_customer).ToList().FirstOrDefault();
 
-                Feedback feedbackDelete = db.Feedbacks.Find(feedback.id_feedback);
+                Feedback feedbackDelete = new Feedback();
 
-                db.Feedbacks.Remove(feedbackDelete);
-                db.SaveChangesAsync();
-                return "Успешно";
+                if (feedback != null)
+                {
+                    feedbackDelete = db.Feedbacks.Find(feedback.id_feedback);
+
+                    db.Feedbacks.Remove(feedbackDelete);
+                    db.SaveChangesAsync();
+
+                    string jsonBase = JsonConvert.SerializeObject(feedbackDelete);
+                    return jsonBase;
+                }
+                else 
+                {
+                    feedback = new Feedback();
+                    feedback.id_feedback = 0;
+                    feedback.id_customer = 0;
+                    feedback.content = "default";
+                    string jsonBase = JsonConvert.SerializeObject(feedback);
+                    return jsonBase;
+                }
             }
-            else return "Провал";
+            else
+            {
+                Feedback feedback = new Feedback();
+                feedback.id_feedback = 0;
+                feedback.id_customer = 0;
+                feedback.content = "default";
+                string jsonBase = JsonConvert.SerializeObject(feedback);
+                return jsonBase;
+            }
         }
 
     }

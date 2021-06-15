@@ -22,9 +22,13 @@ namespace StoreAPI.Controllers
         public string IndexJson()
         {
 
-            IEnumerable<Customer> customers = db.Customers.ToList();
+            Customer customer = db.Customers.Where(c => c.login == User.Identity.Name).FirstOrDefault();
 
-            string json = JsonConvert.SerializeObject(customers);
+            ID id = new ID();
+
+            id.id_customer = customer.id_customer;
+
+            string json = JsonConvert.SerializeObject(id);
 
             return json;
         }
@@ -217,11 +221,15 @@ namespace StoreAPI.Controllers
         [Route("api/[controller]")]
         public string RegisterJson(CustomerCustom model)
         {
-            if (model.login == null) return "Введите логин";
-            if (model.password == null) return "Введите пароль";
-            if (model.phone == null) return "Введите номер телефона";
-            if (model.phone.Length < 11) return "Введите номер телефона соответвующий модели (X-XXX-XXX-XX-XX)";
-            if (model.adress_customer == null) return "Введите адрес";
+            ID answer = new ID();
+            answer.id_customer = 0;
+            string jsonDefault = JsonConvert.SerializeObject(answer);
+
+            if (model.login == null) return jsonDefault;
+            if (model.password == null) return jsonDefault;
+            if (model.phone == null) return jsonDefault;
+            if (model.phone.Length < 11) return jsonDefault;
+            if (model.adress_customer == null) return jsonDefault;
 
             Customer customer = new Customer
             {
@@ -243,12 +251,24 @@ namespace StoreAPI.Controllers
             }
             else
             {
-                return "Пользователь " + customer.login + " уже существует";
+                answer.id_customer = -1;
+                string json= JsonConvert.SerializeObject(answer);
+                return json;
             }
             Customer customer_db = db.Customers.Where(u => u.login == customer.login && u.password == customer.password).FirstOrDefault();
 
-            if (customer_db != null) return "Пользователь " + customer.login + " успешно добавлен";
-            else return "Ошибка добавления пользователя";
+            if (customer_db != null)
+            {
+                answer.id_customer = customer.id_customer;
+                string json = JsonConvert.SerializeObject(answer);
+                return json;
+            }
+            else
+            {
+                answer.id_customer = -1;
+                string json = JsonConvert.SerializeObject(answer);
+                return json;
+            }
 
         }
 
